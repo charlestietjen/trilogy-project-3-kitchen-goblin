@@ -4,8 +4,12 @@
   "description": "",
   "main": "server/server.js",
   "scripts": {
+    "dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "charlestietjen",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^7.1.0"
+  }
 }

@@ -42,11 +42,11 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        singleUpload: async(parent, { image, uploadedBy }) => {
+        singleUpload: async(parent, { image, uploadedBy, category }) => {
             const { createReadStream, filename, mimetype, encoding } = await image;
             const stream = createReadStream();
-            const date = new Date.now
-            const pathName = `./uploads/${date}${filename}`
+            let ext = filename.split('.').pop();
+            const pathName = `../assets/img/${category}/${uploadedBy}.${ext}`;
             await stream.pipe(fs.createWriteStream(pathName))
             const newImage = await Image.create({src:pathName, uploadedBy: uploadedBy});
 

@@ -55,7 +55,7 @@ type Query {
 }
 
 type Mutation {
-    singleUpload(image: Upload!, uploadedBy: String!): Image!
+    singleUpload(image: Upload!, uploadedBy: String!, category: String!): Image!
     addUser(username: String!, email: String!, password: String!, avatar: String): Auth
     login(email: String!, password: String!): Auth
     addRecipe(recipeName: String!, shortDescription: String!, steps: [stepInput]!, isPublic: Boolean!, image: String!): Recipe
