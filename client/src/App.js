@@ -5,7 +5,7 @@ import { setContext } from '@apollo/client/link/context';
 import { StoreProvider } from './utils/GlobalState';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { Header } from './components';
-import { Login, Landing, Signup } from './pages';
+import { Login, Landing, Signup, SignupAvatar } from './pages';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -42,6 +42,7 @@ function App() {
             <Routes>
               <Route path='/login' element={<Login />} />
               <Route path='/signup' element={<Signup />} />
+              <Route path='/avatar' element={<SignupAvatar />} />
               <Route path='*' element={<Landing />} />
             </Routes>
           </ChakraProvider>

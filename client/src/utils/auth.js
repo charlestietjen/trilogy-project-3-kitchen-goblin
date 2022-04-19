@@ -25,9 +25,10 @@ class AuthService {
         return localStorage.getItem('id_token');
     }
 
-    login(idToken) {
+    login(idToken, signup = false) {
         localStorage.setItem('id_token', idToken);
 
+        signup ? window.location.assign('/avatar') :
         window.location.assign('/');
     }
 
