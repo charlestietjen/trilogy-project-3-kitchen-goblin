@@ -7,7 +7,7 @@ const imageSchema = new Schema(
             require: true
         },
         uploadedBy: {
-            type: Number,
+            type: String,
             require: true
         },
         createdAt: {

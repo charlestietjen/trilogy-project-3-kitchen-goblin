@@ -13,7 +13,8 @@ import {
     GridItem,
     Box,
     IconButton,
-    Checkbox
+    Checkbox,
+    Button
 } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
@@ -34,9 +35,15 @@ export const AddRecipe = () => {
         setIngredients([...ingredients, newIngredient])
     }
     const removeIngredient = () => {
-        const lastIngredient = ingredients[ingredients.length -1];
-        const newIngredients = ingredients.filter((t) => t !== lastIngredient);
+        let lastIngredient = ingredients[ingredients.length -1];
+        let newIngredients = ingredients.filter((t) => t !== lastIngredient);
         setIngredients(newIngredients)
+        let newFormState = {...formState};
+        lastIngredient = `ingredientName.${ingredients.length -1}`;
+        let lastQuantity = `quantity.${ingredients.length -1}`;
+        delete newFormState[lastIngredient];
+        delete newFormState[lastQuantity]
+        setFormState(newFormState);
     }
     const handleChange = e => {
         setFormState({...formState, [e.target.id]:e.target.value})
@@ -44,6 +51,10 @@ export const AddRecipe = () => {
     }
     const publicHandler = e => {
         setFormState({...formState, isPublic: e.target.value})
+    }
+    const handleSubmit = e => {
+        e.preventDefault();
+        // use for...in to iterate over formState and push each ingredient to a new array for final mutation
     }
     useEffect(() => {
     })
@@ -61,11 +72,11 @@ export const AddRecipe = () => {
                         <Grid id={`ingredient${i}`}templateColumns='repeat(6, 1fr)' key={i}>
                             <GridItem colSpan={4}>
                                 <FormHelperText>Ingredient Name</FormHelperText>
-                                <Input name='ingredientName' />
+                                <Input id={`ingredientName.${i}`} name='ingredientName' />
                             </GridItem>
                             <GridItem colStart={5} colSpan={2}>
                                 <FormHelperText>Quantity</FormHelperText>
-                                <Input name='quantity' />
+                                <Input id={`quantity.${i}`} name='quantity' />
                             </GridItem>
                         </Grid>
                     ))}
@@ -82,6 +93,10 @@ export const AddRecipe = () => {
                     <SimpleGrid columns={2}>
                         <FormLabel>Public Recipe</FormLabel>
                         <Switch value={true} name='isPublic' id='isPublic' />
+                    </SimpleGrid>
+                    <SimpleGrid columns={2} gap={30}>
+                        <Button type='submit'>Add to Book</Button>
+                        <Button>Cancel</Button>
                     </SimpleGrid>
                 </FormControl>
                 </Stack>

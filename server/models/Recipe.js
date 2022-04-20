@@ -9,6 +9,10 @@ const recipeSchema = new Schema({
         type: String,
         required: true
     },
+    ingredients: {
+        type: Array,
+        required: true
+    },
     steps: {
         type: Array,
         required: true

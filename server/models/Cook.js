@@ -1,6 +1,9 @@
 const { Schema, model } = require('mongoose');
 
 const cookSchema = new Schema({
+    ingredients: {
+        type: Array
+    },
     steps: {
         type: Array
     },

@@ -19,6 +19,11 @@ const resolvers = {
         user: async(parent, { username }) => {
             return User.findOne({ username })
             .select('-__v -password');
+        },
+        recipes: async(parent, { username }) => {
+            const recipeData = await Recipe.find({ username: username })
+            .select('-__v');
+            return recipeData;
         }
     },
     Mutation: {
@@ -42,15 +47,14 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        singleUpload: async(parent, { image, uploadedBy, category }) => {
+        imageUpload: async(parent, { image, uploadedBy, category }) => {
             const { createReadStream, filename, mimetype, encoding } = await image;
             const stream = createReadStream();
             let ext = filename.split('.').pop();
-            const pathName = `../assets/img/${category}/${uploadedBy}.${ext}`;
+            const pathName = `./assets/img/${category}/${uploadedBy}.${ext}`;
             await stream.pipe(fs.createWriteStream(pathName))
             const newImage = await Image.create({src:pathName, uploadedBy: uploadedBy});
-
-            return newImage;
+            return pathName;
         },
         addRecipe: async(parent, args) => {
             const recipe = await Recipe.create(args);

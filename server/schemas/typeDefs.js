@@ -4,7 +4,9 @@ const typeDefs = gql`
 scalar Upload
 
 type Image {
-    url: String!
+    image: Upload
+    uploadedBy: String
+    category: String
 }
 
 type User {
@@ -17,12 +19,18 @@ type User {
 }
 
 type Recipe {
-    _id: ID!
-    recipeName: String!
-    shortDescription: String!
-    steps: [step]!
-    isPublic: Boolean!
+    _id: ID
+    recipeName: String
+    shortDescription: String
+    ingredients: [ingredient]
+    steps: [step]
+    isPublic: Boolean
     image: String
+}
+
+type ingredient{
+    name: String!
+    quantity: String!
 }
 
 type step{
@@ -35,10 +43,16 @@ input stepInput {
     image: String
 }
 
+input ingredientInput {
+    name: String!
+    quantity: String!
+}
+
 type Cook {
     _id: ID!
     notes: String
     steps: [step]
+    ingredients: [ingredient]
     image: String
     recipeId: ID!
 }
@@ -52,14 +66,15 @@ type Query {
     images: [Image]
     users: [User]
     user(username:String!): User
+    recipes(username:String): Recipe
 }
 
 type Mutation {
-    singleUpload(image: Upload!, uploadedBy: String!, category: String!): Image!
+    imageUpload(image: Upload!, uploadedBy: String!, category: String!): Image!
     addUser(username: String!, email: String!, password: String!, avatar: String): Auth
     login(email: String!, password: String!): Auth
-    addRecipe(recipeName: String!, shortDescription: String!, steps: [stepInput]!, isPublic: Boolean!, image: String!): Recipe
-    addCook(notes: String, steps: stepInput, image: String, recipeId: ID!): Cook
+    addRecipe(recipeName: String!, shortDescription: String!, steps: [stepInput]!, ingredients: [ingredientInput]!, isPublic: Boolean!, image: String!): Recipe
+    addCook(notes: String, steps: stepInput, ingredients: [ingredientInput], image: String, recipeId: ID!): Cook
 }
 `
 

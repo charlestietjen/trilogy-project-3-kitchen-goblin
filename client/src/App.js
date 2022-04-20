@@ -7,6 +7,7 @@ import { StoreProvider } from './utils/GlobalState';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { Header } from './components';
 import { Login, Landing, Signup, SignupAvatar, Dashboard, AddRecipe } from './pages';
+import Auth from './utils/auth';
 
 // const httpLink = createHttpLink({
 //   uri: '/graphql',
@@ -45,11 +46,18 @@ function App() {
           <ChakraProvider resetCSS theme={theme}>
             <Header />
             <Routes>
-              <Route path='/dashboard' element={<Dashboard />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/signup' element={<Signup />} />
-              <Route path='/avatar' element={<SignupAvatar />} />
-              <Route path='/addRecipe' element={<AddRecipe />} />
+              {Auth.loggedIn()?(
+                <>
+                  <Route path='/dashboard' element={<Dashboard />} />
+                  <Route path='/avatar' element={<SignupAvatar />} />
+                  <Route path='/addRecipe' element={<AddRecipe />} />
+                </>
+              ):(
+                <>
+                  <Route path='/login' element={<Login />} />
+                  <Route path='/signup' element={<Signup />} />
+                </>
+              )}
               <Route path='*' element={<Landing />} />
             </Routes>
           </ChakraProvider>
