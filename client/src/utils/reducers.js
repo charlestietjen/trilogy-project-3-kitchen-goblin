@@ -1,8 +1,16 @@
 import { useReducer } from 'react';
-import {} from './actions';
+import { LOGIN } from './actions';
 
 export const reducer = (state, action) => {
-
+    switch(action.type) {
+        case LOGIN:
+            return {
+                ...state,
+                user: [...action.loggedIn],
+            }
+            default:
+                return state;
+    }
 };
 
 export function useGlobalReducer(initialState) {

@@ -29,7 +29,7 @@ class AuthService {
         localStorage.setItem('id_token', idToken);
 
         signup ? window.location.assign('/avatar') :
-        window.location.assign('/');
+        window.location.assign('/dashboard');
     }
 
     logout() {

@@ -34,3 +34,12 @@ export const ADD_USER = gql`
         }
     }
 `
+
+export const UPLOAD_IMAGE = gql`
+    mutation imageUpload($image: Upload!, $uploadedBy: String!, $category: String!) {
+        imageUpload(image: $image, uploadedBy: $uploadedBy, category: $category)
+        {
+            uploadedBy
+        }
+    }
+    `

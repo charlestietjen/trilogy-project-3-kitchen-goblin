@@ -12,6 +12,8 @@ import {
     Avatar
     } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useStoreContext } from '../../utils/GlobalState';
+import { LOGIN } from '../../utils/actions';
 import {
     HamburgerIcon
 } from '@chakra-ui/icons';
@@ -20,6 +22,9 @@ import Auth from '../../utils/auth';
 import './style.css';
 
 export const Header = () => {
+    const handleLogout = () => {
+        Auth.logout();
+    }
     return (
         <Grid display='flex'>
             <GridItem w='10%'>
@@ -30,14 +35,12 @@ export const Header = () => {
                     <>
                         <Link as={RouterLink} to='/dashboard'>
                             <MenuItem>
-                                <Avatar size='sm' marginRight='1vh' /><Text>Username</Text>
+                                <Avatar size='sm' marginRight='1vh' /><Text>{Auth.getProfile().data.username}</Text>
                             </MenuItem>
                         </Link>
-                        <Link as={RouterLink} to='/logout'>
-                            <MenuItem>
-                                <FiLogOut />Log Out
-                            </MenuItem>
-                        </Link>
+                        <MenuItem onClick={handleLogout}>
+                            <FiLogOut />Log Out
+                        </MenuItem>
                     </>
                     :
                     <>
