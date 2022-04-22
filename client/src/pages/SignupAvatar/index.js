@@ -16,28 +16,27 @@ import {
     Box
 } from '@chakra-ui/react';
 import { ImageUpload } from '../../components/ImageUpload';
-import { UPLOAD_IMAGE } from '../../utils/mutations';
 import { useMutation } from '@apollo/client';
 
 export const SignupAvatar = () => {
-    const user = Auth.getProfile();
+    const user = Auth.getProfile().data;
     const [avatarSrc, setAvatarSrc] = useState('');
     const [avatarFile, setAvatarFile] = useState({});
     const { isOpen, onClose, onOpen } = useDisclosure();
-    const [uploadImage, { error } ] = useMutation(UPLOAD_IMAGE);
+
+    const imageProperties = {
+        uploadedBy: user.username, category: 'avatar'
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const mutationResponse = await uploadImage(({
-                variables: {
-                    image: avatarFile
-                }
-            }))
-        } catch(e) {
-            console.error(e);
-        }
     }
+
+    const imageCallback = imageData => {
+        setAvatarSrc(imageData.src)
+        onClose()
+    }
+
     return (
         <>
             <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
@@ -48,7 +47,7 @@ export const SignupAvatar = () => {
                     </ModalHeader>
                     <ModalCloseButton />
                     <ModalBody align='center'>
-                        <ImageUpload onClose={onClose} state={avatarSrc} setNewState={setAvatarSrc} fileState={avatarFile} setFileState={setAvatarFile} uploadedBy={Auth.getProfile().data.username} category={'avatar'} />
+                        <ImageUpload onClose={onClose} callback={imageCallback} properties={imageProperties} />
                     </ModalBody>
                 </ModalContent>
             </Modal>

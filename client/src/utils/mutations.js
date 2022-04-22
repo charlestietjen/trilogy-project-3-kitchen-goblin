@@ -40,6 +40,8 @@ export const UPLOAD_IMAGE = gql`
         imageUpload(image: $image, uploadedBy: $uploadedBy, category: $category)
         {
             src
+            uploadedBy
+            category
         }
     }
     `
