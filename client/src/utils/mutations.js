@@ -45,8 +45,8 @@ export const UPLOAD_IMAGE = gql`
     `
 
 export const ADD_RECIPE = gql`
-    mutation addRecipe($recipeName: String!, $shortDescription: String!, $ingredients: [ingredientInput]!, $steps: [stepInput]!, $isPublic: Boolean!, $image: String){
-    addRecipe(recipeName: $recipeName, shortDescription: $shortDescription, ingredients: $ingredients, steps: $steps, isPublic: $isPublic, image: $image)
+    mutation addRecipe($recipeName: String!, $shortDescription: String!, $ingredients: [ingredientInput]!, $steps: [stepInput]!, $isPublic: Boolean!, $image: String, $username: String){
+    addRecipe(recipeName: $recipeName, shortDescription: $shortDescription, ingredients: $ingredients, steps: $steps, isPublic: $isPublic, image: $image, username: $username)
         {
             _id
             recipeName

@@ -21,6 +21,7 @@ import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_RECIPE } from '../../utils/mutations';
+import Auth from '../../utils/auth';
 
 export const AddRecipe = () => {
     const [formState, setFormState] = useState({
@@ -68,7 +69,8 @@ export const AddRecipe = () => {
                 steps: formState.steps,
                 ingredients: formState.ingredients,
                 isPublic: formState.isPublic,
-                image: formState.image
+                image: formState.image,
+                username: Auth.getProfile().data.username
             }
         })
         console.log(mutationResponse)

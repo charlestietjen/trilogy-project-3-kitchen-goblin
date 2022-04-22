@@ -27,6 +27,7 @@ type Recipe {
     steps: [step]
     isPublic: Boolean
     image: String
+    username: String
 }
 
 type ingredient{
@@ -67,14 +68,15 @@ type Query {
     images: [Image]
     users: [User]
     user(username:String!): User
-    recipes(username:String): Recipe
+    recipes(username:String): [Recipe]
+    allrecipes: [Recipe]
 }
 
 type Mutation {
     imageUpload(image: Upload!, uploadedBy: String!, category: String!): Image!
     addUser(username: String!, email: String!, password: String!, avatar: String): Auth
     login(email: String!, password: String!): Auth
-    addRecipe(recipeName: String!, shortDescription: String!, steps: [stepInput]!, ingredients: [ingredientInput]!, isPublic: Boolean!, image: String): Recipe
+    addRecipe(recipeName: String!, shortDescription: String!, steps: [stepInput]!, ingredients: [ingredientInput]!, isPublic: Boolean!, image: String, username: String): Recipe
     addCook(notes: String, steps: stepInput, ingredients: [ingredientInput], image: String, recipeId: ID!): Cook
 }
 `

@@ -35,7 +35,7 @@ export const Header = () => {
                     <>
                         <Link as={RouterLink} to='/dashboard'>
                             <MenuItem>
-                                <Avatar size='sm' marginRight='1vh' /><Text>{Auth.getProfile().data.username}</Text>
+                                <Avatar src={`./assets/img/avatar/${Auth.getProfile().data.username}`} size='sm' marginRight='1vh' /><Text>{Auth.getProfile().data.username}</Text>
                             </MenuItem>
                         </Link>
                         <MenuItem onClick={handleLogout}>

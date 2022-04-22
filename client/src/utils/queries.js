@@ -6,6 +6,10 @@ query getRecipes($username: String){
         _id
         recipeName
         shortDescription
+        ingredients {
+            ingredientName
+            quantity
+        }
         steps {
             text
             image
@@ -13,3 +17,15 @@ query getRecipes($username: String){
         image
     }
 }`
+
+export const ALL_RECIPES = gql`
+query {
+  allrecipes {
+    _id
+    recipeName
+    shortDescription
+    image
+    username
+  }
+}
+`

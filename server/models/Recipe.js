@@ -23,6 +23,10 @@ const recipeSchema = new Schema({
     },
     image: {
         type: String
+    },
+    username: {
+        type: String,
+        required: true
     }
 })
 

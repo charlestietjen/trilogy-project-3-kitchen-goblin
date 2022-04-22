@@ -20,10 +20,12 @@ const resolvers = {
             return User.findOne({ username })
             .select('-__v -password');
         },
+        allrecipes: async() => {
+            return Recipe.find();
+        },
         recipes: async(parent, { username }) => {
-            const recipeData = await Recipe.find({ username: username })
-            .select('-__v');
-            return recipeData;
+            // const recipeData = await Recipe.find({ username });
+            return Recipe.find({ username });
         }
     },
     Mutation: {
@@ -49,13 +51,13 @@ const resolvers = {
         },
         imageUpload: async(parent, { image, uploadedBy, category }) => {
             const { createReadStream, filename, mimetype, encoding } = await image;
+            let newImage = await Image.create({src: 'placeholder', uploadedBy: uploadedBy, category: category});
             const stream = createReadStream();
             let ext = filename.split('.').pop();
-            let pathName = `./public/assets/img/${category}/${uploadedBy}.${ext}`;
+            let pathName = `./build/assets/img/${category}/${newImage._id}.${ext}`;
             await stream.pipe(fs.createWriteStream(pathName))
-            // pathName = path.join(pathName);
-            let src = `./assets/img/${category}/${uploadedBy}.${ext}`;
-            const newImage = await Image.create({src:src, uploadedBy: uploadedBy, category: category});
+            let src = `./assets/img/${category}/${newImage._id}.${ext}`;
+            newImage = await Image.findOneAndUpdate({ _id: newImage._id }, {src: src}, {new: true})
             return newImage;
         },
         addRecipe: async(parent, args) => {

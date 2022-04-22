@@ -14,12 +14,13 @@ export const Dashboard = () => {
     const { loading, data } = useQuery(QUERY_RECIPES, {
         variables: { username: Auth.getProfile().data.username }
     });
+    const recipes = data?.recipes || [];
     return (
         <Stack display='flex' align='center' paddingTop='10vmax'>
             <Search />
             <Button><Link to='/addRecipe'>Add Recipe</Link></Button>
             {loading? (<Spinner /> ): (<></>)}
-            {!loading && data.recipes.length > 0 ? (<RecipeList recipes={data.recipes} />) : (<Text>Add a recipe to get started!</Text>)}
+            {recipes.length > 0 ? (<RecipeList recipes={recipes} />) : (<Text>Add a recipe to get started!</Text>)}
         </Stack>
     )
 }
