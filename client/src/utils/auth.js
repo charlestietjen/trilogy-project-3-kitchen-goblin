@@ -32,8 +32,11 @@ class AuthService {
         window.location.assign('/dashboard');
     }
 
-    logout() {
+    logout(skip = false) {
         localStorage.removeItem('id_token');
+        if (skip){
+            return;
+        }
         window.location.assign('/');
     }
 }

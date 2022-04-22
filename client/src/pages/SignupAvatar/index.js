@@ -17,19 +17,28 @@ import {
 } from '@chakra-ui/react';
 import { ImageUpload } from '../../components/ImageUpload';
 import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
+import { UPDATE_USER } from '../../utils/mutations';
 
 export const SignupAvatar = () => {
     const user = Auth.getProfile().data;
     const [avatarSrc, setAvatarSrc] = useState('');
     const [avatarFile, setAvatarFile] = useState({});
     const { isOpen, onClose, onOpen } = useDisclosure();
+    const [updateUser] = useMutation(UPDATE_USER)
+    const navigate = useNavigate();
 
     const imageProperties = {
         uploadedBy: user.username, category: 'avatar'
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
+        const mutationResponse = await updateUser({
+            variables: {...user, avatar: avatarSrc}});
+        const token = mutationResponse.data.updateUser.token;
+        Auth.logout(true);
+        Auth.login(token);
     }
 
     const imageCallback = imageData => {

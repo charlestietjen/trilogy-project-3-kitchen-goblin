@@ -25,6 +25,8 @@ export const Header = () => {
     const handleLogout = () => {
         Auth.logout();
     }
+    const user = Auth.getProfile().data;
+    console.log(user)
     return (
         <Grid display='flex'>
             <GridItem w='10%'>
@@ -35,7 +37,7 @@ export const Header = () => {
                     <>
                         <Link as={RouterLink} to='/dashboard'>
                             <MenuItem>
-                                <Avatar src={`./assets/img/avatar/${Auth.getProfile().data.username}`} size='sm' marginRight='1vh' /><Text>{Auth.getProfile().data.username}</Text>
+                                <Avatar src={user.avatar} size='sm' marginRight='1vh' /><Text>{Auth.getProfile().data.username}</Text>
                             </MenuItem>
                         </Link>
                         <MenuItem onClick={handleLogout}>

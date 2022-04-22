@@ -65,3 +65,17 @@ export const ADD_RECIPE = gql`
         }
     }
 `
+
+export const UPDATE_USER = gql`
+    mutation UpdateUser($username: String, $email: String, $password: String, $avatar: String) {
+        updateUser(username: $username, email: $email, password: $password, avatar: $avatar) {
+            token
+            user {
+                _id
+                username
+                email
+                avatar
+            }
+        }
+    }
+`
