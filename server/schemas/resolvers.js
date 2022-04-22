@@ -51,10 +51,12 @@ const resolvers = {
             const { createReadStream, filename, mimetype, encoding } = await image;
             const stream = createReadStream();
             let ext = filename.split('.').pop();
-            const pathName = `./assets/img/${category}/${uploadedBy}.${ext}`;
+            let pathName = `./public/assets/img/${category}/${uploadedBy}.${ext}`;
             await stream.pipe(fs.createWriteStream(pathName))
-            const newImage = await Image.create({src:pathName, uploadedBy: uploadedBy});
-            return pathName;
+            // pathName = path.join(pathName);
+            let src = `./assets/img/${category}/${uploadedBy}.${ext}`;
+            const newImage = await Image.create({src:src, uploadedBy: uploadedBy, category: category});
+            return newImage;
         },
         addRecipe: async(parent, args) => {
             const recipe = await Recipe.create(args);

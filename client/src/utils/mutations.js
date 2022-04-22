@@ -39,7 +39,27 @@ export const UPLOAD_IMAGE = gql`
     mutation imageUpload($image: Upload!, $uploadedBy: String!, $category: String!) {
         imageUpload(image: $image, uploadedBy: $uploadedBy, category: $category)
         {
-            uploadedBy
+            src
         }
     }
     `
+
+export const ADD_RECIPE = gql`
+    mutation addRecipe($recipeName: String!, $shortDescription: String!, $ingredients: [ingredientInput]!, $steps: [stepInput]!, $isPublic: Boolean!, $image: String){
+    addRecipe(recipeName: $recipeName, shortDescription: $shortDescription, ingredients: $ingredients, steps: $steps, isPublic: $isPublic, image: $image)
+        {
+            _id
+            recipeName
+            shortDescription
+            ingredients {
+                ingredientName
+                quantity 
+            }
+            steps {
+                text
+                image
+            }
+            image
+        }
+    }
+`

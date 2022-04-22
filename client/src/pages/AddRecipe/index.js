@@ -16,8 +16,11 @@ import {
     Checkbox,
     Button
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { ADD_RECIPE } from '../../utils/mutations';
 
 export const AddRecipe = () => {
     const [formState, setFormState] = useState({
@@ -28,8 +31,10 @@ export const AddRecipe = () => {
         quantity: ''
     }]);
     const [steps, setSteps] = useState([{
-        text: ''
+        text: '', image: ''
     }]);
+    const [addRecipe, { error }] = useMutation(ADD_RECIPE);
+    const [isPublic, setIsPublic] = useState(false)
     const addIngredient = () => {
         const newIngredient = {ingredientName: '', quantity: ''};
         setIngredients([...ingredients, newIngredient])
@@ -46,21 +51,61 @@ export const AddRecipe = () => {
         setFormState(newFormState);
     }
     const handleChange = e => {
-        setFormState({...formState, [e.target.id]:e.target.value})
-        console.log(formState)
+        setFormState({...formState, [e.target.id]:e.target.value, isPublic: e.target.checked, ingredients: ingredients, steps: steps })
     }
     const publicHandler = e => {
-        setFormState({...formState, isPublic: e.target.value})
+        let { checked } = e.target;
+        setFormState({...formState, isPublic: checked})
+        // setIsPublic(checked);
     }
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        // use for...in to iterate over formState and push each ingredient to a new array for final mutation
+        // package data for mutation
+        const mutationResponse = await addRecipe({
+            variables: {
+                recipeName: formState.recipeName,
+                shortDescription: formState.shortDescription,
+                steps: formState.steps,
+                ingredients: formState.ingredients,
+                isPublic: formState.isPublic,
+                image: formState.image
+            }
+        })
+        console.log(mutationResponse)
+    }
+    const handleIngredientChange = e => {
+        e.preventDefault();
+        let { name, value } = e.target;
+        let i = e.target.id.split('.').pop()
+        let newIngredients = [...ingredients]
+        newIngredients[i][name] = value;
+        setIngredients(newIngredients)
+    }
+    const handleStepsChange = e => {
+        e.preventDefault();
+        let { name, value } = e.target;
+        name = name.split('.');
+        let i = name[name.length -1];
+        name = name[0];
+        let newSteps = [...steps];
+        newSteps[i][name] = value;
+        setSteps(newSteps);
+    }
+    const addStep = () => {
+        let newStep = {text: '', image: ''};
+        setSteps([...steps, newStep])
+    }
+    const removeStep = () => {
+        let lastStep = steps[steps.length -1];
+        let newSteps = steps.filter((t) => t !== lastStep);
+        setSteps(newSteps)
+        setFormState({...formState, steps: newSteps});
     }
     useEffect(() => {
     })
     return (
         <Stack display='flex' align='center' paddingTop='12vmax'>
-            <form onChange={handleChange}>
+            <form onSubmit={handleSubmit} onChange={handleChange}>
                 <Stack>
                 <FormControl w='35vmax'>
                     <FormLabel>Recipe Name</FormLabel>
@@ -69,7 +114,7 @@ export const AddRecipe = () => {
                     <Textarea id='shortDescription' rows='7' size='md' placeholder='Enter a short description...'></Textarea>
                     <FormLabel>Ingredients</FormLabel>
                     {ingredients.map((ingredient, i) => (
-                        <Grid id={`ingredient${i}`}templateColumns='repeat(6, 1fr)' key={i}>
+                        <Grid onChange={handleIngredientChange} id={`ingredient${i}`}templateColumns='repeat(6, 1fr)' key={i}>
                             <GridItem colSpan={4}>
                                 <FormHelperText>Ingredient Name</FormHelperText>
                                 <Input id={`ingredientName.${i}`} name='ingredientName' />
@@ -90,13 +135,26 @@ export const AddRecipe = () => {
                             </GridItem>
                         ):(<></>)}
                     </Grid>
+                    <FormLabel>Directions</FormLabel>
+                    {steps.map((step, i) => (
+                        <div key={i}>
+                            <FormHelperText>Step {i + 1}</FormHelperText>
+                            <Textarea margin={2} onChange={handleStepsChange} name={`text.${i}`} rows={8} />
+                        </div>
+                    ))}
+                    <SimpleGrid columns={2} gap={40} margin='1vmax'>
+                        <IconButton onClick={addStep} icon={<AddIcon />} />
+                        {steps.length>1?(
+                            <IconButton onClick={removeStep} icon={<MinusIcon />} />
+                        ):(<></>)}
+                    </SimpleGrid>
                     <SimpleGrid columns={2}>
                         <FormLabel>Public Recipe</FormLabel>
-                        <Switch value={true} name='isPublic' id='isPublic' />
+                        <Switch name='isPublic' id='isPublic' />
                     </SimpleGrid>
                     <SimpleGrid columns={2} gap={30}>
                         <Button type='submit'>Add to Book</Button>
-                        <Button>Cancel</Button>
+                        <Link to='/dashboard'><Button>Cancel</Button></Link>
                     </SimpleGrid>
                 </FormControl>
                 </Stack>

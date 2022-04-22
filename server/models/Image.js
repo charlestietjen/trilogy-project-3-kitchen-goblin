@@ -13,6 +13,10 @@ const imageSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now
+        },
+        category: {
+            type: String,
+            require: true
         }
     }
 );

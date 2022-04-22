@@ -20,7 +20,7 @@ export const ImageUpload = ({ state, setNewState, fileState, setFileState, onClo
     }
     const handleSubmit = async e => {
         e.preventDefault();
-        setNewState(URL.createObjectURL(imgInput.current.files[0]));
+        // setNewState(URL.createObjectURL(imgInput.current.files[0]));
         setFileState(imgInput.current.files[0]);
         const image = e.target.image.files[0];
         const mutationResponse = await uploadImage({
@@ -30,6 +30,7 @@ export const ImageUpload = ({ state, setNewState, fileState, setFileState, onClo
                 category: category
             }
         })
+        setNewState(mutationResponse.data.imageUpload.src);
     }
     const handleChange = e => {
         if (!imgInput.current.files[0]){

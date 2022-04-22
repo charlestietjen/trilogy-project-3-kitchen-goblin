@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const {ApolloServer} = require('apollo-server-express');
 const {graphqlUploadExpress} = require('graphql-upload');
 const { typeDefs, resolvers } = require('./schemas');
@@ -18,6 +19,12 @@ const startServer = async () => {
 
     app.use(graphqlUploadExpress());
     app.use(express.json());
+    app.use(express.static(path.join(__dirname, 'build')));
+    app.use(express.static(path.join(__dirname, 'public')));
+
+    app.get('/', function(req, res) {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });
 
     server.applyMiddleware({ app });
     console.log(`GraphQL available at http://localhost:${PORT}${server.graphqlPath}`);

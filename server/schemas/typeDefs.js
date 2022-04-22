@@ -7,6 +7,7 @@ type Image {
     image: Upload
     uploadedBy: String
     category: String
+    src: String
 }
 
 type User {
@@ -29,7 +30,7 @@ type Recipe {
 }
 
 type ingredient{
-    name: String!
+    ingredientName: String!
     quantity: String!
 }
 
@@ -44,7 +45,7 @@ input stepInput {
 }
 
 input ingredientInput {
-    name: String!
+    ingredientName: String!
     quantity: String!
 }
 
@@ -73,7 +74,7 @@ type Mutation {
     imageUpload(image: Upload!, uploadedBy: String!, category: String!): Image!
     addUser(username: String!, email: String!, password: String!, avatar: String): Auth
     login(email: String!, password: String!): Auth
-    addRecipe(recipeName: String!, shortDescription: String!, steps: [stepInput]!, ingredients: [ingredientInput]!, isPublic: Boolean!, image: String!): Recipe
+    addRecipe(recipeName: String!, shortDescription: String!, steps: [stepInput]!, ingredients: [ingredientInput]!, isPublic: Boolean!, image: String): Recipe
     addCook(notes: String, steps: stepInput, ingredients: [ingredientInput], image: String, recipeId: ID!): Cook
 }
 `
