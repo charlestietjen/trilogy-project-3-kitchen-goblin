@@ -78,6 +78,7 @@ type Mutation {
     login(email: String!, password: String!): Auth
     addRecipe(recipeName: String!, shortDescription: String!, steps: [stepInput]!, ingredients: [ingredientInput]!, isPublic: Boolean!, image: String, username: String): Recipe
     addCook(notes: String, steps: stepInput, ingredients: [ingredientInput], image: String, recipeId: ID!): Cook
+    updateUser(username: String, email: String, password: String, avatar: String): Auth
 }
 `
 

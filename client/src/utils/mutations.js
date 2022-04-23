@@ -40,6 +40,8 @@ export const UPLOAD_IMAGE = gql`
         imageUpload(image: $image, uploadedBy: $uploadedBy, category: $category)
         {
             src
+            uploadedBy
+            category
         }
     }
     `
@@ -60,6 +62,20 @@ export const ADD_RECIPE = gql`
                 image
             }
             image
+        }
+    }
+`
+
+export const UPDATE_USER = gql`
+    mutation UpdateUser($username: String, $email: String, $password: String, $avatar: String) {
+        updateUser(username: $username, email: $email, password: $password, avatar: $avatar) {
+            token
+            user {
+                _id
+                username
+                email
+                avatar
+            }
         }
     }
 `

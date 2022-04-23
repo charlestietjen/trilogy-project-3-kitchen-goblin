@@ -35,6 +35,12 @@ const resolvers = {
 
             return { token, user };
         },
+        updateUser: async(parent, args, { _id }) => {
+            const user = await User.findOneAndUpdate(_id, args, {new: true})
+            const token = signToken(user);
+
+            return { token, user};
+        },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
@@ -67,7 +73,7 @@ const resolvers = {
         addCook: async(parent, args) => {
             const cook = await Cook.create(args);
             return cook;
-        }
+        },
     }
 }
 

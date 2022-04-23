@@ -1,52 +1,35 @@
-import {
-    Box,
-    IconButton,
-    Button,
-    Image
-} from '@chakra-ui/react';
-import { FiImage } from 'react-icons/fi';
+import { Box, Button, Image } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import { UPLOAD_IMAGE } from '../../utils/mutations';
 import { useMutation } from '@apollo/client';
 
-export const ImageUpload = ({ state, setNewState, fileState, setFileState, onClose, uploadedBy, category }) => {
-    const [imageURL, setImageURL] = useState(require('../../assets/img/avatar/placeholder.png'))
-    const [formState, setFormState] = useState({});
-    const [uploadImage, { error } ] = useMutation(UPLOAD_IMAGE);
-    const imgInput = useRef(null);
-    const selectButton = useRef(null);
+export const ImageUpload = ({ callback, properties }) => {
+    const [formState, setFormState] = useState({image: {...properties}, previewUrl: require('../../assets/img/avatar/placeholder.png')});
+    const [uploadImage] = useMutation(UPLOAD_IMAGE);
+    const hiddenInput = useRef(null);
+
     const handleClick = () => {
-        imgInput.current.click();
+        hiddenInput.current.click();
     }
     const handleSubmit = async e => {
         e.preventDefault();
-        // setNewState(URL.createObjectURL(imgInput.current.files[0]));
-        setFileState(imgInput.current.files[0]);
-        const image = e.target.image.files[0];
         const mutationResponse = await uploadImage({
-            variables: {
-                image: image,
-                uploadedBy: uploadedBy,
-                category: category
-            }
+            variables: formState.image
         })
-        setNewState(mutationResponse.data.imageUpload.src);
+        callback(mutationResponse.data.imageUpload);
     }
     const handleChange = e => {
-        if (!imgInput.current.files[0]){
+        if (!e.target.files[0]){
             return;
         }
-        setImageURL(URL.createObjectURL(imgInput.current.files[0]));
-        setFormState({
-            image: e.target.files[0]
-        })
+        setFormState({...formState, image: {...properties, image: e.target.files[0]}, previewUrl: URL.createObjectURL(e.target.files[0])});
     }
     return (
         <Box>
             <form onSubmit={handleSubmit} onChange={handleChange}>
-                <Button ref={selectButton} onClick={handleClick} size='50vw'><Image src={imageURL} /></Button>
-                <input name='image' ref={imgInput} id='imgInput' type='file' accept='image/*' hidden/>
-                <Button type='submit' margin='1.5vmax'>Submit</Button>
+                <Button onClick={handleClick} size={'m'}><Image src={formState.previewUrl} /></Button>
+                <input ref={hiddenInput} type='file' accept='image/*' hidden />
+                <Button type='submit' margin={2}>Upload</Button>
             </form>
         </Box>
     )
