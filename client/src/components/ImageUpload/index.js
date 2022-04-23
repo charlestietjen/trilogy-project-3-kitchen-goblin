@@ -16,8 +16,9 @@ export const ImageUpload = ({ callback, properties, options = {} }) => {
         e.preventDefault();
         const mutationResponse = await uploadImage({
             variables: formState.image
-        })
-        callback(mutationResponse.data.imageUpload);
+        });
+        const { imageUpload } = mutationResponse.data;
+        callback({...imageUpload, properties});
     }
     const handleChange = e => {
         if (!e.target.files[0]){

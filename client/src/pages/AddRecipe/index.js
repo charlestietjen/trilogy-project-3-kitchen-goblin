@@ -53,7 +53,8 @@ export const AddRecipe = () => {
     };
     const handleTitleImage = e => {
         const { src } = e;
-            setFormState({...formState, image: src});
+        console.log(e)
+        setFormState({...formState, image: src});
     };
     const handleChange = e => {
         if (e.target.name.split('.').shift() === 'ingredientName' || e.target.name.split('.').shift() === 'quantity'){

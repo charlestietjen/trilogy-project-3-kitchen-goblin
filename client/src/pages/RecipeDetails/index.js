@@ -23,7 +23,7 @@ export const RecipeDetails = () => {
         variables: { id: id}
     });
     const { recipeName, image, ingredients, shortDescription, steps, username } = data?.recipe.recipe || {};
-    const { avatar } = data?.user || {};
+    const { avatar } = data?.recipe.user || {};
     return(
         <>
             {loading?(<Spinner />):(
@@ -31,7 +31,7 @@ export const RecipeDetails = () => {
                     <Heading fontSize={'1.5rem'}>{recipeName}</Heading>
                     <SimpleGrid columns={2}>
                         <Tag size='lg'>
-                            <Avatar name={username} ml={-1} mr={2} size={'sm'} src={avatar}></Avatar>
+                            <Avatar ml={-1} mr={2} size={'sm'} src={avatar} />
                             <TagLabel>{username}</TagLabel>
                         </Tag>
                         <Image margin={4} src={image} />
