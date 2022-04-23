@@ -25,8 +25,7 @@ export const SignupAvatar = () => {
     const [avatarSrc, setAvatarSrc] = useState('');
     const [avatarFile, setAvatarFile] = useState({});
     const { isOpen, onClose, onOpen } = useDisclosure();
-    const [updateUser] = useMutation(UPDATE_USER)
-    const navigate = useNavigate();
+    const [updateUser] = useMutation(UPDATE_USER);
 
     const imageProperties = {
         uploadedBy: user.username, category: 'avatar'
