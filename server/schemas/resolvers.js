@@ -32,7 +32,6 @@ const resolvers = {
             recipeDetails.recipe = await Recipe.findOne({ _id });
             const { username } = recipeDetails.recipe;
             recipeDetails.user = await User.findOne({ username })
-            console.log(recipeDetails);
             return recipeDetails;
         }
     },
@@ -68,9 +67,9 @@ const resolvers = {
             let newImage = await Image.create({src: 'placeholder', uploadedBy: uploadedBy, category: category});
             const stream = createReadStream();
             let ext = filename.split('.').pop();
-            let pathName = `./build/assets/img/${category}/${newImage._id}.${ext}`;
+            let pathName = `./public/assets/img/${category}/${newImage._id}.${ext}`;
             await stream.pipe(fs.createWriteStream(pathName))
-            let src = `./assets/img/${category}/${newImage._id}.${ext}`;
+            let src = `/assets/img/${category}/${newImage._id}.${ext}`;
             newImage = await Image.findOneAndUpdate({ _id: newImage._id }, {src: src}, {new: true})
             return newImage;
         },

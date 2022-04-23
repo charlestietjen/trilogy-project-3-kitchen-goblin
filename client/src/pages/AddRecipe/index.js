@@ -21,8 +21,10 @@ import { useMutation } from '@apollo/client';
 import { ADD_RECIPE } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import { ImageUpload } from '../../components';
+import { useNavigate } from 'react-router-dom';
 
 export const AddRecipe = () => {
+    const navigate = useNavigate();
     const [addRecipe] = useMutation(ADD_RECIPE);
     const [formState, setFormState] = useState({
         isPublic: false,
@@ -81,7 +83,10 @@ export const AddRecipe = () => {
                 isPublic: formState.isPublic,
                 username: Auth.getProfile().data.username
             }
+        }).then(({ data }) => {
+            navigate(`/recipe/${data.addRecipe._id}`);
         })
+
     };
     return (
         <Stack display='flex' align='center' paddingTop={15}>
