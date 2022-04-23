@@ -3,10 +3,11 @@ import { useRef, useState } from 'react';
 import { UPLOAD_IMAGE } from '../../utils/mutations';
 import { useMutation } from '@apollo/client';
 
-export const ImageUpload = ({ callback, properties }) => {
+export const ImageUpload = ({ callback, properties, options = {} }) => {
     const [formState, setFormState] = useState({image: {...properties}, previewUrl: require('../../assets/img/avatar/placeholder.png')});
     const [uploadImage] = useMutation(UPLOAD_IMAGE);
     const hiddenInput = useRef(null);
+    const size = options.size || 'm';
 
     const handleClick = () => {
         hiddenInput.current.click();
@@ -26,11 +27,9 @@ export const ImageUpload = ({ callback, properties }) => {
     }
     return (
         <Box>
-            <form onSubmit={handleSubmit} onChange={handleChange}>
-                <Button onClick={handleClick} size={'m'}><Image src={formState.previewUrl} /></Button>
-                <input ref={hiddenInput} type='file' accept='image/*' hidden />
-                <Button type='submit' margin={2}>Upload</Button>
-            </form>
+            <Image onClick={handleClick} boxSize={size} src={formState.previewUrl} />
+            <input ref={hiddenInput} onChange={handleChange} type='file' accept='image/*' hidden />
+            <Button onClick={handleSubmit} type='submit' margin={2}>Upload</Button>
         </Box>
     )
 };
