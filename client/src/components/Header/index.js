@@ -12,6 +12,7 @@ import {
     Avatar
     } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useStoreContext } from '../../utils/GlobalState';
 import { LOGIN } from '../../utils/actions';
 import {
@@ -25,8 +26,7 @@ export const Header = () => {
     const handleLogout = () => {
         Auth.logout();
     }
-    const user = Auth.getProfile().data;
-    console.log(user)
+
     return (
         <Grid display='flex'>
             <GridItem w='10%'>
@@ -35,27 +35,21 @@ export const Header = () => {
                 <MenuList>
                     {Auth.loggedIn() ?
                     <>
-                        <Link as={RouterLink} to='/dashboard'>
-                            <MenuItem>
-                                <Avatar src={user.avatar} size='sm' marginRight='1vh' /><Text>{Auth.getProfile().data.username}</Text>
-                            </MenuItem>
-                        </Link>
+                        <MenuItem as={RouterLink} to='/dashboard'>
+                            <Avatar src={Auth.getProfile().data.avatar} size='md' marginRight={2} />{Auth.getProfile().data.username}
+                        </MenuItem>
                         <MenuItem onClick={handleLogout}>
                             <FiLogOut />Log Out
                         </MenuItem>
                     </>
                     :
                     <>
-                        <Link as={RouterLink} to='/login'>
-                            <MenuItem>
-                                <FiLogIn /> Log In
-                            </MenuItem>
-                        </Link>
-                        <Link as={RouterLink} to='/signup'>
-                            <MenuItem>
-                                <FiPlus /> Sign Up
-                            </MenuItem>
-                        </Link>
+                        <MenuItem as={RouterLink} to='/login'>
+                            <FiLogIn /> Log In
+                        </MenuItem>
+                        <MenuItem as={RouterLink} to='/signup'>
+                            <FiPlus /> Sign Up
+                        </MenuItem>
                     </>
                     }
                 </MenuList>
