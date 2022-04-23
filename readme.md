@@ -3,4 +3,4 @@
 
 #### Deployed Application
 
-(https://kitchen-goblin.herokuapp.com/)
+https://kitchen-goblin.herokuapp.com/
