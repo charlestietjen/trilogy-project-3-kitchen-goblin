@@ -45,12 +45,19 @@ export const AddRecipe = () => {
         let newSteps = formState.steps;
         newSteps.push({text: '', image: ''});
         setFormState({...formState, steps: newSteps});
-    }
+    };
     const removeStep = () => {
         let newSteps = formState.steps;
         newSteps.pop();
         setFormState({...formState, steps: newSteps});
     };
+    const handleStepImage = imageData => {
+        const { src } = imageData;
+        const { i } = imageData.properties.index;
+        const newSteps = formState.steps;
+        newSteps[i].image = src;
+        setFormState({...formState, steps: newSteps});
+    }
     const handleTitleImage = e => {
         const { src } = e;
         console.log(e)
@@ -85,7 +92,7 @@ export const AddRecipe = () => {
                 username: Auth.getProfile().data.username
             }
         }).then(({ data }) => {
-            navigate(`/recipe/${data.addRecipe._id}`);
+            navigate(`/recipe/${data.addRecipe._id}`, { replace: true });
         })
 
     };
@@ -125,8 +132,8 @@ export const AddRecipe = () => {
                             <Box align='center' key={i}>
                                 <FormHelperText> Step {i + 1}</FormHelperText>
                                 <Textarea margin={2} name={`text.${i}`} rows={8} />
-                                <FormHelperText>Step {i+1} Picture</FormHelperText>
-                                <ImageUpload options={{size: '25vmax'}}/>
+                                <FormHelperText>Step {i+1} Picture (Optional)</FormHelperText>
+                                <ImageUpload callback={handleStepImage} properties={{category: 'step', uploadedBy: Auth.getProfile().data.username, index: {i}}} options={{size: '25vmax'}}/>
                             </Box>
                         ))}
                         <SimpleGrid columns={2}>

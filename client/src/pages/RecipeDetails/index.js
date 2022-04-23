@@ -14,8 +14,10 @@ Image,
 Box,
 VStack,
 Text,
-Container
+Container,
+Divider
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 export const RecipeDetails = () => {
     const { id } = useParams();
@@ -30,18 +32,23 @@ export const RecipeDetails = () => {
                 <Stack align='center' paddingTop={20}>
                     <Heading fontSize={'1.5rem'}>{recipeName}</Heading>
                     <SimpleGrid columns={2}>
-                        <Tag size='lg'>
-                            <Avatar ml={-1} mr={2} size={'sm'} src={avatar} />
-                            <TagLabel>{username}</TagLabel>
-                        </Tag>
+                        <Box>
+                            <Tag as={Link} to={`/user/${username}`} size='lg'>
+                                <Avatar ml={-1} mr={2} size={'sm'} src={avatar} />
+                                <TagLabel>{username}</TagLabel>
+                            </Tag>
+                        </Box>
                         <Image margin={4} src={image} />
                     </SimpleGrid>
+                    <Container>
+                        {shortDescription}
+                    </Container>
                     <Text>Ingredients</Text>
-                    <SimpleGrid columns={2}>
-                        <VStack mr={6}>{ingredients.map(({ ingredientName }, i) => (
+                    <SimpleGrid padding={1} border={'solid'} bg={'blackAlpha.500'} columns={2}>
+                        <VStack divider={<Divider />} mr={6}>{ingredients.map(({ ingredientName }, i) => (
                             <Box key={i}>{ingredientName}</Box>
                         ))}</VStack>
-                        <VStack>{ingredients.map(({ quantity }, i) => (
+                        <VStack divider={<Divider />}>{ingredients.map(({ quantity }, i) => (
                             <Box key={i}>{quantity}</Box>
                         ))}</VStack>
                     </SimpleGrid>

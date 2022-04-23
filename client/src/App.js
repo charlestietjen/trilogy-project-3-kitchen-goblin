@@ -6,7 +6,7 @@ import { setContext } from '@apollo/client/link/context';
 import { StoreProvider } from './utils/GlobalState';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { Header } from './components';
-import { Login, Landing, Signup, SignupAvatar, Dashboard, AddRecipe, RecipeDetails } from './pages';
+import { Login, Landing, Signup, SignupAvatar, Dashboard, AddRecipe, RecipeDetails, User } from './pages';
 import Auth from './utils/auth';
 
 // const httpLink = createHttpLink({
@@ -59,6 +59,7 @@ function App() {
                 </>
               )}
               <Route path='/recipe/:id' element={<RecipeDetails />} />
+              <Route path='/user/:id' element={<User />} />
               <Route path='*' element={<Landing />} />
             </Routes>
           </ChakraProvider>
