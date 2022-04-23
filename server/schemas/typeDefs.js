@@ -30,6 +30,11 @@ type Recipe {
     username: String
 }
 
+type RecipeDetails {
+    recipe: Recipe
+    user: User
+}
+
 type ingredient{
     ingredientName: String!
     quantity: String!
@@ -70,6 +75,7 @@ type Query {
     user(username:String!): User
     recipes(username:String): [Recipe]
     allrecipes: [Recipe]
+    recipe(_id:ID!): RecipeDetails
 }
 
 type Mutation {

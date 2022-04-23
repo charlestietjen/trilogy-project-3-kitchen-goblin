@@ -26,6 +26,14 @@ const resolvers = {
         recipes: async(parent, { username }) => {
             // const recipeData = await Recipe.find({ username });
             return Recipe.find({ username });
+        },
+        recipe: async(parent, { _id }) => {
+            const recipeDetails = { recipe: {}, user: {}};
+            recipeDetails.recipe = await Recipe.findOne({ _id });
+            const { username } = recipeDetails.recipe;
+            recipeDetails.user = await User.findOne({ username })
+            console.log(recipeDetails);
+            return recipeDetails;
         }
     },
     Mutation: {

@@ -29,3 +29,35 @@ query {
   }
 }
 `
+
+export const QUERY_RECIPE = gql`
+query Recipe($id: ID!) {
+  recipe(_id: $id) {
+    recipe {
+      recipeName
+      shortDescription
+      ingredients {
+        ingredientName
+        quantity
+      }
+      steps {
+        text
+        image
+      }
+      image
+      username
+    }
+    user {
+      avatar
+    }
+  }
+}
+`
+
+export const QUERY_USER_AVATAR = gql`
+query User($username: String!) {
+  user(username: $username) {
+    avatar
+  }
+}
+`

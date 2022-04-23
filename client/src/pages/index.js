@@ -4,5 +4,6 @@ import { Signup } from './Signup';
 import { SignupAvatar } from './SignupAvatar';
 import { Dashboard } from './Dashboard';
 import { AddRecipe } from './AddRecipe';
+import { RecipeDetails } from './RecipeDetails';
 
-export { Landing, Login, Signup, SignupAvatar, Dashboard, AddRecipe };
+export { Landing, Login, Signup, SignupAvatar, Dashboard, AddRecipe, RecipeDetails };
