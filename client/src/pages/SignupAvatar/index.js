@@ -41,7 +41,7 @@ export const SignupAvatar = () => {
     }
 
     const imageCallback = imageData => {
-        setAvatarSrc(imageData.src)
+        setAvatarSrc(imageData.url)
         onClose()
     }
 

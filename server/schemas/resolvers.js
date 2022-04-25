@@ -88,7 +88,7 @@ const resolvers = {
             const fileName = `${imageData._id}.${ext}`;
             const s3 = new aws.S3();
             const s3Params = {
-                Bucket: `${S3_BUCKET}/img/${category}/`,
+                Bucket: `${S3_BUCKET}/img/${category}`,
                 Key: `${imageData._id}.${ext}`,
                 Expires: 60,
                 ContentType: type
@@ -96,9 +96,9 @@ const resolvers = {
             const signedUrl = new Promise ((resolve, reject) => {
                 s3.getSignedUrl('putObject', s3Params, (err, url) => { resolve(url); });
             });
-            imageData = await Image.findOneAndUpdate({ _id: imageData._id }, {src: `https://${S3_BUCKET}.s3.amazonaws.com/img/${category}/${imageData._id}`});
+            imageData = await Image.findOneAndUpdate({ _id: imageData._id }, {src: `https://${S3_BUCKET}.s3.amazonaws.com/img/${category}/${imageData._id}.${ext}`});
             const signedRequest = await signedUrl;
-            return {signedRequest, url:`https://${S3_BUCKET}.s3.amazonaws.com/img/${category}/${imageData._id}`, fileName: fileName};
+            return {signedRequest, url:`https://${S3_BUCKET}.s3.amazonaws.com/img/${category}/${imageData._id}.${ext}`, fileName: fileName};
         },
     }
 }
