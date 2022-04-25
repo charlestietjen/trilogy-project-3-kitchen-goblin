@@ -5,6 +5,7 @@ const { finished } = require('stream/promises');
 const path = require('path');
 const fs = require('fs');
 const {signToken} = require('../utils/auth');
+const { aws, S3_BUCKET } = require('../config/aws');
 
 const resolvers = {
     Upload: GraphQLUpload,
@@ -80,6 +81,24 @@ const resolvers = {
         addCook: async(parent, args) => {
             const cook = await Cook.create(args);
             return cook;
+        },
+        signS3: async(parent, { name, type, uploadedBy, category }) => {
+            let imageData = await Image.create({src: 'placeholder', uploadedBy: uploadedBy, category: category});
+            const ext = name.split('.').pop();
+            const fileName = `${imageData._id}.${ext}`;
+            const s3 = new aws.S3();
+            const s3Params = {
+                Bucket: `${S3_BUCKET}/img/${category}/`,
+                Key: `${imageData._id}.${ext}`,
+                Expires: 60,
+                ContentType: type
+            };
+            const signedUrl = new Promise ((resolve, reject) => {
+                s3.getSignedUrl('putObject', s3Params, (err, url) => { resolve(url); });
+            });
+            imageData = await Image.findOneAndUpdate({ _id: imageData._id }, {src: `https://${S3_BUCKET}.s3.amazonaws.com/img/${category}/${imageData._id}`});
+            const signedRequest = await signedUrl;
+            return {signedRequest, url:`https://${S3_BUCKET}.s3.amazonaws.com/img/${category}/${imageData._id}`, fileName: fileName};
         },
     }
 }

@@ -69,6 +69,12 @@ type Auth {
     user: User
 }
 
+type S3 {
+    signedRequest: String
+    url: String
+    fileName: String
+}
+
 type Query {
     images: [Image]
     users: [User]
@@ -85,6 +91,7 @@ type Mutation {
     addRecipe(recipeName: String!, shortDescription: String!, steps: [stepInput]!, ingredients: [ingredientInput]!, isPublic: Boolean!, image: String, username: String): Recipe
     addCook(notes: String, steps: stepInput, ingredients: [ingredientInput], image: String, recipeId: ID!): Cook
     updateUser(username: String, email: String, password: String, avatar: String): Auth
+    signS3(name: String!, type: String!, category: String!, uploadedBy: String!): S3
 }
 `
 

@@ -60,7 +60,6 @@ export const AddRecipe = () => {
     }
     const handleTitleImage = e => {
         const { src } = e;
-        console.log(e)
         setFormState({...formState, image: src});
     };
     const handleChange = e => {

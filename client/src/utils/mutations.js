@@ -67,3 +67,13 @@ export const UPDATE_USER = gql`
         }
     }
 `
+
+export const SIGN_S3 = gql`
+mutation SignS3($name: String!, $type: String!, $uploadedBy: String!, $category: String!) {
+    signS3(name: $name, type: $type, category: $category, uploadedBy: $uploadedBy) {
+        signedRequest
+        url
+        fileName
+    }
+}
+`
