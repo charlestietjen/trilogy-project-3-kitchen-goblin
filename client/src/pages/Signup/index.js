@@ -7,18 +7,11 @@ import {
     Text,
     Link,
     Stack,
-    Avatar,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    ModalCloseButton,
     useDisclosure,
     Button
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
 import { ADD_USER } from '../../utils/mutations';
@@ -57,7 +50,7 @@ export const Signup = () => {
     return (
         <Stack paddingTop='15vh' display='flex' align='center'>
             <form onSubmit={handleSubmit}>
-                <FormControl onChange={handleChange} align='center' padding='2vmax' border='solid' borderRadius='5%' bg='blackAlpha.500' shadow='outline' w='40vmax'>
+                <FormControl onChange={handleChange} align='center' padding='2vmax' border='solid' borderRadius='5%' bg='blackAlpha.500' shadow='outline' w={['40vmax', null, '45vh']}>
                     <Stack display='flex'>
                     <FormLabel htmlFor='email'>Email Address</FormLabel>
                     <Input id='email' type='email' />
@@ -70,6 +63,7 @@ export const Signup = () => {
                     </Stack>
                 </FormControl>
             </form>
+            <Text>Already have an account? <Link as={RouterLink} to='/login'>Click here</Link></Text>
         </Stack>
     )
 }

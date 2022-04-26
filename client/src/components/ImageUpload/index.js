@@ -1,14 +1,16 @@
 import { Box, Button, Image, Spinner, Icon } from '@chakra-ui/react';
 import { CheckIcon } from '@chakra-ui/icons';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { SIGN_S3 } from '../../utils/mutations';
 import { useMutation } from '@apollo/client';
 
 export const ImageUpload = ({ callback, properties, options = {} }) => {
-    const [formState, setFormState] = useState({image: {...properties}, previewUrl: require('../../assets/img/avatar/placeholder.png')});
+    const [formState, setFormState] = useState({image: {...properties}, previewUrl: properties.src || require('../../assets/img/avatar/placeholder.png')});
     const [signS3, { loading, data }] = useMutation(SIGN_S3);
     const hiddenInput = useRef(null);
     const size = options.size || 'm';
+    const isAvatar = options.isAvatar || false
+    console.log(options, isAvatar)
 
     const handleClick = () => {
         hiddenInput.current.click();
@@ -48,10 +50,10 @@ export const ImageUpload = ({ callback, properties, options = {} }) => {
         setFormState({...formState, signS3: {...mutationResponse.data.signS3}, image: {...properties, image: e.target.files[0]}, previewUrl: URL.createObjectURL(e.target.files[0])});
     }
     return (
-        <Box>
-            <Image onClick={handleClick} boxSize={size} src={formState.previewUrl} />
+        <Box align='center'>
+            {isAvatar?(<Image borderRadius={'full'} onClick={handleClick} boxSize={size} src={formState.previewUrl} />):(<Image onClick={handleClick} boxSize={size} src={formState.previewUrl} />)} 
             <input ref={hiddenInput} onChange={handleChange} type='file' accept='image/*' hidden />
-            <Button onClick={handleSubmit} type='submit' margin={2}>Upload</Button>{loading?(<Spinner />):('')}{data?(<CheckIcon />):('')}
+            {data?(<Button onClick={handleSubmit} type='submit' margin={2}>Upload</Button>):(<Button isDisabled margin={2}>Upload</Button>)}
         </Box>
     )
 };

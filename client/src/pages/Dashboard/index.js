@@ -9,6 +9,7 @@ import { RecipeList, Search } from '../../components';
 import Auth from '../../utils/auth';
 import { useQuery } from '@apollo/client';
 import { QUERY_RECIPES } from '../../utils/queries';
+import { SpinnerFullPage } from '../../components';
 
 export const Dashboard = () => {
     const { loading, data } = useQuery(QUERY_RECIPES, {
@@ -19,7 +20,7 @@ export const Dashboard = () => {
         <Stack display='flex' align='center' paddingTop='10vmax'>
             <Search />
             <Button><Link to='/addRecipe'>Add Recipe</Link></Button>
-            {loading? (<Spinner /> ): (<></>)}
+            {loading? (<SpinnerFullPage /> ): (<></>)}
             {recipes.length > 0 ? (<RecipeList recipes={recipes} />) : (<Text>Add a recipe to get started!</Text>)}
         </Stack>
     )

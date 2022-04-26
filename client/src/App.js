@@ -6,12 +6,9 @@ import { setContext } from '@apollo/client/link/context';
 import { StoreProvider } from './utils/GlobalState';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { Header } from './components';
-import { Login, Landing, Signup, SignupAvatar, Dashboard, AddRecipe, RecipeDetails, User } from './pages';
+import { Login, Landing, Signup, SignupAvatar, Dashboard, AddRecipe, RecipeDetails, User, EditRecipe } from './pages';
 import Auth from './utils/auth';
 
-// const httpLink = createHttpLink({
-//   uri: '/graphql',
-// });
 
 const httpLink = createUploadLink({
   uri: '/graphql',
@@ -33,7 +30,7 @@ const client = new ApolloClient({
 });
 
 const config = {
-  initialColorMode: 'light',
+  initialColorMode: 'dark',
   useSystemColorMode: true
 }
 
@@ -51,6 +48,7 @@ function App() {
                   <Route path='/dashboard' element={<Dashboard />} />
                   <Route path='/avatar' element={<SignupAvatar />} />
                   <Route path='/addRecipe' element={<AddRecipe />} />
+                  <Route path='/recipe/:id/edit' element={<EditRecipe />} />
                 </>
               ):(
                 <>
@@ -59,7 +57,7 @@ function App() {
                 </>
               )}
               <Route path='/recipe/:id' element={<RecipeDetails />} />
-              <Route path='/user/:id' element={<User />} />
+              <Route path='/user/:username' element={<User />} />
               <Route path='*' element={<Landing />} />
             </Routes>
           </ChakraProvider>

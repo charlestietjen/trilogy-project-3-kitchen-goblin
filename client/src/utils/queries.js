@@ -34,6 +34,7 @@ export const QUERY_RECIPE = gql`
 query Recipe($id: ID!) {
   recipe(_id: $id) {
     recipe {
+      _id
       recipeName
       shortDescription
       ingredients {
@@ -49,6 +50,7 @@ query Recipe($id: ID!) {
     }
     user {
       avatar
+      _id
     }
   }
 }
