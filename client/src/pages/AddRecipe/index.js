@@ -53,7 +53,7 @@ export const AddRecipe = () => {
     };
     const handleStepImage = imageData => {
         const { url } = imageData;
-        const { i } = imageData.properties.index;
+        const i = imageData.properties.index;
         const newSteps = formState.steps;
         newSteps[i].image = url;
         setFormState({...formState, steps: newSteps});
@@ -132,7 +132,7 @@ export const AddRecipe = () => {
                                 <FormHelperText> Step {i + 1}</FormHelperText>
                                 <Textarea margin={2} name={`text.${i}`} rows={8} />
                                 <FormHelperText>Step {i+1} Picture (Optional)</FormHelperText>
-                                <ImageUpload callback={handleStepImage} properties={{category: 'step', uploadedBy: Auth.getProfile().data.username, index: {i}}} options={{size: '25vmax'}}/>
+                                <ImageUpload callback={handleStepImage} properties={{category: 'step', uploadedBy: Auth.getProfile().data.username, index: i}} options={{size: '25vmax'}}/>
                             </Box>
                         ))}
                         <SimpleGrid columns={2}>

@@ -100,6 +100,9 @@ const resolvers = {
             const signedRequest = await signedUrl;
             return {signedRequest, url:`https://${S3_BUCKET}.s3.amazonaws.com/img/${category}/${imageData._id}.${ext}`, fileName: fileName};
         },
+        updateRecipe: async(parent, args, { _id }) => {
+            return await Recipe.findOneAndUpdate(_id, args, {new: true})
+        },
     }
 }
 

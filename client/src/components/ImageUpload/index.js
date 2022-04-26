@@ -10,7 +10,6 @@ export const ImageUpload = ({ callback, properties, options = {} }) => {
     const hiddenInput = useRef(null);
     const size = options.size || 'm';
     const isAvatar = options.isAvatar || false
-    console.log(options, isAvatar)
 
     const handleClick = () => {
         hiddenInput.current.click();
