@@ -103,6 +103,9 @@ const resolvers = {
         updateRecipe: async(parent, args, { _id }) => {
             return await Recipe.findOneAndUpdate(_id, args, {new: true})
         },
+        deleteRecipe: async(parent, { _id }) => {
+            return await Recipe.findOneAndDelete(_id)
+        },
     }
 }
 

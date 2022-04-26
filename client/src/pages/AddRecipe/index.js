@@ -96,7 +96,7 @@ export const AddRecipe = () => {
 
     };
     return (
-        <Stack display='flex' align='center' paddingTop={15}>
+        <Stack display='flex' align='center' paddingTop={3}>
             <Heading fontSize={25}>Add a Recipe</Heading>
             <form name='recipe' onSubmit={handleSubmit} onChange={handleChange}>
                 <Stack w='40vmax' divider={true}>

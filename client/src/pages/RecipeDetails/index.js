@@ -1,6 +1,7 @@
 import React from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { QUERY_RECIPE } from '../../utils/queries'
+import { DELETE_RECIPE } from '../../utils/mutations'
 import Auth from '../../utils/auth'
 import { useParams, Link } from 'react-router-dom'
 import {
@@ -17,7 +18,9 @@ import {
 	Text,
 	Container,
 	Divider,
-	Button
+	Button,
+	Popover, PopoverContent, PopoverHeader, PopoverCloseButton, PopoverBody, PopoverFooter, PopoverArrow, PopoverTrigger
+
 } from '@chakra-ui/react'
 import { SpinnerFullPage } from '../../components'
 
@@ -26,8 +29,19 @@ export const RecipeDetails = () => {
 	const {loading, data} = useQuery(QUERY_RECIPE, {
 		variables: { id: id}
 	});
+	const [deleteRecipe] = useMutation(DELETE_RECIPE);
 	const { recipeName, image, ingredients, shortDescription, steps, username } = data?.recipe.recipe || {};
 	const { avatar, _id } = data?.recipe.user || {};
+
+	const handleDelete = async e => {
+		const mutationResponse = await deleteRecipe({
+			variables: {
+				id: id
+			}
+		})
+		if (!mutationResponse) return
+		window.location.assign('/dashboard')
+	}
 	return(
 		<>
 			{loading?(<SpinnerFullPage />):(
@@ -42,9 +56,31 @@ export const RecipeDetails = () => {
 						</Box>
 						<Image w={'100%'} src={image} />
 					</SimpleGrid>
-					{_id === Auth.getProfile().data._id && 
-						<Button as={Link} to={`/recipe/${data.recipe.recipe._id}/edit`}>Edit Recipe</Button>
-					}
+					{Auth.loggedIn()?(
+						<>
+							{_id === Auth.getProfile().data._id && 
+								<SimpleGrid columns={2} spacing={'3em'}>
+									<Button as={Link} to={`/recipe/${data.recipe.recipe._id}/edit`}>Edit Recipe</Button>
+									<Popover>
+										<PopoverTrigger>
+											<Button>Delete Recipe</Button>
+										</PopoverTrigger>
+										<PopoverContent w={'max'}>
+											<PopoverArrow />
+											<PopoverCloseButton />
+											<PopoverHeader>Delete Recipe</PopoverHeader>
+											<PopoverBody>
+												Warning: This cannot be undone.
+											</PopoverBody>
+											<PopoverFooter display={'flex'} justifyContent={'space-evenly'}>
+												<Button bgColor={'red'} color={'white'} w={'100%'} onClick={handleDelete}>Delete</Button>
+											</PopoverFooter>
+										</PopoverContent>
+									</Popover>
+								</SimpleGrid>
+							}
+					</>
+					):('')}
 					<Container>
 						{shortDescription}
 					</Container>

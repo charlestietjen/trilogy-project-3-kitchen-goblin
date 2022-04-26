@@ -25,7 +25,7 @@ export const Header = () => {
     }
 
     return (
-        <Grid display='flex'>
+        <Grid borderBottom={'solid'} display='flex'>
             <GridItem w='10%'>
                 <Menu isLazy>
                     <MenuButton m={2} w={[10, 20]} h={[10, 20]} as={IconButton} aria-label='Options' icon={<HamburgerIcon fontSize={['x-large','xx-large']} />} variant="outline" />

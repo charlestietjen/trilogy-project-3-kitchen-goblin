@@ -9,7 +9,7 @@ export const Landing = () => {
     const recipes = data?.allrecipes || [];
 
     return (
-        <Stack marginTop={10} display='flex'>
+        <Stack paddingTop={3} display='flex'>
             <Search />
             {loading?(<SpinnerFullPage />):(<RecipeList recipes={recipes} />)}
             

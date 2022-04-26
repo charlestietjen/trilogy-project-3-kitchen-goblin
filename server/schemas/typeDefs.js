@@ -93,6 +93,7 @@ type Mutation {
     updateUser(_id: String!, username: String, email: String, password: String, avatar: String): Auth
     signS3(name: String!, type: String!, category: String!, uploadedBy: String!): S3
     updateRecipe(_id: String!, recipeName: String, image: String, shortDescription: String, steps: [stepInput], ingredients: [ingredientInput], isPublic: Boolean): Recipe
+    deleteRecipe(_id: String!): Recipe
 }
 `
 

@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_RECIPE } from '../../utils/queries';
 import { stripTypenames } from '../../utils/helpers'
@@ -31,6 +31,7 @@ export const EditRecipe = () => {
     const [formState, setFormState] = useState({
     })
     const [updateRecipe] = useMutation(UPDATE_RECIPE)
+    const navigate = useNavigate()
 
     const handleChange = e => {
         if (e.target.name.split('.').shift() === 'ingredientName' || e.target.name.split('.').shift() === 'quantity'){
@@ -103,7 +104,7 @@ export const EditRecipe = () => {
             {loading?(
                 <SpinnerFullPage />
             ):(
-            <Stack align='center' paddingTop={20} paddingBottom={'2em'}>
+            <Stack align='center' paddingTop={3} paddingBottom={'2em'}>
                 <form onSubmit={handleSubmit} onChange={handleChange}>
                     <FormControl align='center' w={'40vmax'}>
                         <FormLabel>Recipe Title</FormLabel>
@@ -121,6 +122,9 @@ export const EditRecipe = () => {
                         <Box align={'left'}>
                             <FormLabel>Public Recipe</FormLabel>
                             <Switch name='isPublic' />
+                        </Box>
+                        <Box display={'flex'} justifyContent={'space-evenly'} marginY={'1em'}>
+                                <Button type='submit'>Submit</Button><Button onClick={() => {navigate(-1)}}>Cancel</Button>
                         </Box>
                         <FormLabel>Ingredients</FormLabel>
                         <SimpleGrid padding={1} border={'solid'} bg={'blackAlpha.500'} columns={2}>
@@ -144,10 +148,12 @@ export const EditRecipe = () => {
                                         <EditablePreview />
                                         <EditableTextarea name={`text.${i}`} rows={8} />
                                     </Editable>
-                                    <ImageUpload callback={handleStepImage} properties={{category: 'step', uploadedBy: data.recipe.recipe.username, index: i, src: image}} options={{size: '25vmax'}}/>
+                                    <ImageUpload callback={handleStepImage} properties={{category: 'step', uploadedBy: data.recipe.recipe.username, index: i, src: image}} options={{size: ['20vmax', null, '16vmax']}}/>
                                 </Box>
                             ))}
-                            <Button marginTop={'1em'} type='submit'>Submit</Button>
+                            <Box display={'flex'} justifyContent={'space-evenly'} marginTop={'1em'}>
+                                <Button type='submit'>Submit</Button><Button onClick={() => {navigate(-1)}}>Cancel</Button>
+                            </Box>
                         </FormControl>
                     </form>
               </Stack>
