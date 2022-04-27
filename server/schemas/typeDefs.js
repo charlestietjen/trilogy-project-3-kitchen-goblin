@@ -90,7 +90,7 @@ type Query {
     images: [Image]
     users: [User]
     user(username:String!): User
-    recipes(username:String): [Recipe]
+    recipes(username:String, isPublic:Boolean): [Recipe]
     allrecipes: [Recipe]
     recipe(_id:ID!): RecipeDetails
 }
@@ -103,7 +103,7 @@ type Mutation {
     addCook(notes: String, steps: [stepInput], ingredients: [ingredientInput], image: String, recipeId: String): Cook
     updateUser(_id: String!, username: String, email: String, password: String, avatar: String): Auth
     signS3(name: String!, type: String!, category: String!, uploadedBy: String!): S3
-    updateRecipe(_id: String!, recipeName: String, image: String, shortDescription: String, steps: [stepInput], ingredients: [ingredientInput], isPublic: Boolean): Recipe
+    updateRecipe(recipeId: String!, recipeName: String, image: String, shortDescription: String, steps: [stepInput], ingredients: [ingredientInput], isPublic: Boolean): Recipe
     deleteRecipe(_id: String!): Recipe
 }
 `

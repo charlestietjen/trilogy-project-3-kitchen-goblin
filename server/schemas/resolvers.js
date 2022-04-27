@@ -22,11 +22,13 @@ const resolvers = {
             .select('-__v -password');
         },
         allrecipes: async() => {
-            return Recipe.find();
+            return Recipe.find({isPublic: true});
         },
-        recipes: async(parent, { username }) => {
-            // const recipeData = await Recipe.find({ username });
-            return Recipe.find({ username });
+        recipes: async(parent, { username, isPublic }) => {
+            if (!isPublic){
+                return Recipe.find({ username });
+            }
+            return Recipe.find({ username, isPublic: true })
         },
         recipe: async(parent, { _id }) => {
             const recipeDetails = { recipe: {}, user: {}, cooks: {}};
@@ -34,7 +36,6 @@ const resolvers = {
             const { username } = recipeDetails.recipe;
             recipeDetails.cooks = await Cook.find({ recipeId: _id })
             recipeDetails.user = await User.findOne({ username })
-            console.log(_id, '----------',recipeDetails)
             return recipeDetails;
         }
     },
@@ -98,8 +99,8 @@ const resolvers = {
             const signedRequest = await signedUrl;
             return {signedRequest, url:`https://${S3_BUCKET}.s3.amazonaws.com/img/${category}/${imageData._id}.${ext}`, fileName: fileName};
         },
-        updateRecipe: async(parent, args, { _id }) => {
-            return await Recipe.findOneAndUpdate(_id, args, {new: true})
+        updateRecipe: async(parent, args, { recipeId }) => {
+            return await Recipe.findOneAndUpdate(recipeId, args, {new: true})
         },
         deleteRecipe: async(parent, { _id }) => {
             return await Recipe.findOneAndDelete(_id)
