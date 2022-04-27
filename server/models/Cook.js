@@ -14,7 +14,7 @@ const cookSchema = new Schema({
         type: String
     },
     recipeId: {
-        type: Number,
+        type: String,
         required: true
     }
 })

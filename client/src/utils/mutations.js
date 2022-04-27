@@ -93,3 +93,12 @@ mutation DeleteRecipe($id: String!) {
     }
 }
 `
+
+export const ADD_COOK = gql`
+mutation AddCook($recipeId: String, $notes: String, $steps: [stepInput], $ingredients: [ingredientInput], $image: String) {
+  addCook(recipeId: $recipeId, notes: $notes, steps: $steps, ingredients: $ingredients, image: $image) {
+    _id
+    recipeId
+  }
+}
+`

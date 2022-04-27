@@ -27,6 +27,9 @@ const recipeSchema = new Schema({
     username: {
         type: String,
         required: true
+    },
+    cooks: {
+        type: Array,
     }
 })
 

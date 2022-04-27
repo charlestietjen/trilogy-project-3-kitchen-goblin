@@ -93,7 +93,6 @@ export const AddRecipe = () => {
         }).then(({ data }) => {
             navigate(`/recipe/${data.addRecipe._id}`, { replace: true });
         })
-
     };
     return (
         <Stack display='flex' align='center' paddingTop={3}>

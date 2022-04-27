@@ -17,13 +17,16 @@ import {
     Switch,
     FormLabel,
     Button,
-    FormControl
+    FormControl,
+    Textarea
 } from '@chakra-ui/react'
 import { AddIcon, MinusIcon } from '@chakra-ui/icons'
 import { SpinnerFullPage } from '../../components';
-import { UPDATE_RECIPE } from '../../utils/mutations'
+import { ADD_COOK } from '../../utils/mutations'
 import { ImageUpload } from '../../components';
-export const EditRecipe = () => {
+
+export const AddCook = () => {
+    const [addCook] = useMutation(ADD_COOK)
     const { id } = useParams()
 	const {loading, data} = useQuery(QUERY_RECIPE, {
 		variables: { id: id}
@@ -32,7 +35,6 @@ export const EditRecipe = () => {
         ingredients: [],
         steps: [],
     })
-    const [updateRecipe] = useMutation(UPDATE_RECIPE)
     const navigate = useNavigate()
 
     const handleChange = e => {
@@ -91,15 +93,16 @@ export const EditRecipe = () => {
     };
     const handleSubmit = async e => {
         e.preventDefault()
-        const mutationData = await updateRecipe({
+        const mutationData = await addCook({
             variables: {
-                id: id,
+                recipeId: id,
                 recipeName: formState.recipeName,
                 shortDescription: formState.shortDescription,
                 ingredients: formState.ingredients,
                 steps: formState.steps,
                 image: formState.image,
                 isPublic: formState.isPublic,
+                notes: formState.notes
             }
         })
         if (mutationData){
@@ -188,6 +191,8 @@ export const EditRecipe = () => {
                                     <IconButton icon={<MinusIcon />} margin={4} onClick={removeStep} />
                                 ):('')}
                             </SimpleGrid>
+                            <FormLabel>Cook Notes</FormLabel>
+                            <Textarea name='notes'></Textarea>
                             <Box display={'flex'} justifyContent={'space-evenly'} marginTop={'1em'}>
                                 <Button type='submit'>Submit</Button><Button onClick={() => {navigate(-1)}}>Cancel</Button>
                             </Box>

@@ -6,7 +6,7 @@ import { setContext } from '@apollo/client/link/context';
 import { StoreProvider } from './utils/GlobalState';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { Header } from './components';
-import { Login, Landing, Signup, SignupAvatar, Dashboard, AddRecipe, RecipeDetails, User, EditRecipe } from './pages';
+import { Login, Landing, Signup, SignupAvatar, Dashboard, AddRecipe, RecipeDetails, User, EditRecipe, AddCook } from './pages';
 import Auth from './utils/auth';
 
 
@@ -49,6 +49,7 @@ function App() {
                   <Route path='/avatar' element={<SignupAvatar />} />
                   <Route path='/addRecipe' element={<AddRecipe />} />
                   <Route path='/recipe/:id/edit' element={<EditRecipe />} />
+                  <Route path='/recipe/:id/addcook' element={<AddCook />} />
                 </>
               ):(
                 <>

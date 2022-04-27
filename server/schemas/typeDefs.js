@@ -28,11 +28,13 @@ type Recipe {
     isPublic: Boolean
     image: String
     username: String
+    cooks: [Cook]
 }
 
 type RecipeDetails {
     recipe: Recipe
     user: User
+    cooks: [Cook]
 }
 
 type ingredient{
@@ -61,7 +63,16 @@ type Cook {
     steps: [step]
     ingredients: [ingredient]
     image: String
-    recipeId: ID!
+    recipeId: String
+}
+
+type CookInput {
+    _id: ID!
+    notes: String
+    steps: [step]
+    ingredients: [ingredient]
+    image: String
+    recipeId: String
 }
 
 type Auth {
@@ -89,7 +100,7 @@ type Mutation {
     addUser(username: String!, email: String!, password: String!, avatar: String): Auth
     login(email: String!, password: String!): Auth
     addRecipe(recipeName: String!, shortDescription: String!, steps: [stepInput]!, ingredients: [ingredientInput]!, isPublic: Boolean!, image: String, username: String): Recipe
-    addCook(notes: String, steps: stepInput, ingredients: [ingredientInput], image: String, recipeId: ID!): Cook
+    addCook(notes: String, steps: [stepInput], ingredients: [ingredientInput], image: String, recipeId: String): Cook
     updateUser(_id: String!, username: String, email: String, password: String, avatar: String): Auth
     signS3(name: String!, type: String!, category: String!, uploadedBy: String!): S3
     updateRecipe(_id: String!, recipeName: String, image: String, shortDescription: String, steps: [stepInput], ingredients: [ingredientInput], isPublic: Boolean): Recipe

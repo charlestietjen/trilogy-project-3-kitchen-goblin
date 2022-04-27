@@ -52,6 +52,18 @@ query Recipe($id: ID!) {
       avatar
       _id
     }
+    cooks {
+      image
+      ingredients {
+        ingredientName
+        quantity
+      }
+      steps {
+        text
+        image
+      }
+      notes
+    }
   }
 }
 `

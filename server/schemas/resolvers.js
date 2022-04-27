@@ -29,10 +29,12 @@ const resolvers = {
             return Recipe.find({ username });
         },
         recipe: async(parent, { _id }) => {
-            const recipeDetails = { recipe: {}, user: {}};
+            const recipeDetails = { recipe: {}, user: {}, cooks: {}};
             recipeDetails.recipe = await Recipe.findOne({ _id });
             const { username } = recipeDetails.recipe;
+            recipeDetails.cooks = await Cook.find({ recipeId: _id })
             recipeDetails.user = await User.findOne({ username })
+            console.log(_id, '----------',recipeDetails)
             return recipeDetails;
         }
     },
@@ -78,10 +80,6 @@ const resolvers = {
             const recipe = await Recipe.create(args);
             return recipe;
         },
-        addCook: async(parent, args) => {
-            const cook = await Cook.create(args);
-            return cook;
-        },
         signS3: async(parent, { name, type, uploadedBy, category }) => {
             let imageData = await Image.create({src: 'placeholder', uploadedBy: uploadedBy, category: category});
             const ext = name.split('.').pop();
@@ -105,6 +103,11 @@ const resolvers = {
         },
         deleteRecipe: async(parent, { _id }) => {
             return await Recipe.findOneAndDelete(_id)
+        },
+        addCook: async(parent, args, { recipeId }) => {
+            const cookData = await Cook.create(args)
+            const recipeData = await Recipe.findOneAndUpdate(recipeId , { cooks: cookData._id })
+            return cookData
         },
     }
 }
