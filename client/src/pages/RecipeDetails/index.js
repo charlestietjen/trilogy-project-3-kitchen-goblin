@@ -26,7 +26,7 @@ import {
 
 } from '@chakra-ui/react'
 import { AddIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons'
-import { SpinnerFullPage } from '../../components'
+import { SpinnerFullPage, AvatarTag } from '../../components'
 
 export const RecipeDetails = () => {
 	const { id } = useParams();
@@ -70,10 +70,7 @@ export const RecipeDetails = () => {
 									<TabPanel align={'center'}>
 										<SimpleGrid w={'90%'} columns={2} margin={3}>
 											<Box w={'max'}>
-												<Tag as={Link} to={`/user/${username}`} size='lg'>
-													<Avatar ml={-1} mr={2} size={'sm'} src={avatar} />
-													<TagLabel>{username}</TagLabel>
-												</Tag>
+												<AvatarTag avatar={avatar} username={username} />
 											</Box>
 											<Image w={'100%'} src={image} />
 										</SimpleGrid>

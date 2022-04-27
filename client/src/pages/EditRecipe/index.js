@@ -93,7 +93,7 @@ export const EditRecipe = () => {
         e.preventDefault()
         const mutationData = await updateRecipe({
             variables: {
-                id: id,
+                recipeId: id,
                 recipeName: formState.recipeName,
                 shortDescription: formState.shortDescription,
                 ingredients: formState.ingredients,
@@ -149,7 +149,7 @@ export const EditRecipe = () => {
                                 <Switch name='isPublic' />
                             </Box>
                             <Box display={'flex'} justifyContent={'space-evenly'} marginY={'1em'}>
-                                <Button type='submit'>Submit</Button><Button onClick={() => { navigate(-1) }}>Cancel</Button>
+                                <Button onClick={() => { navigate(-1) }}>Cancel</Button>
                             </Box>
                             <FormLabel>Ingredients</FormLabel>
                             <VStack padding={1} border={'solid'} bg={'blackAlpha.500'}>

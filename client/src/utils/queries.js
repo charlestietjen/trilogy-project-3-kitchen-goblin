@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_RECIPES = gql`
-query getRecipes($username: String){
-    recipes(username: $username) {
+query getRecipes($username: String, $isPublic: Boolean){
+    recipes(username: $username, isPublic: $isPublic) {
         _id
         recipeName
         shortDescription
@@ -72,6 +72,20 @@ export const QUERY_USER_AVATAR = gql`
 query User($username: String!) {
   user(username: $username) {
     avatar
+  }
+}
+`
+
+export const QUERY_USER_PUBLIC = gql`
+query User($username: String!, $isPublic: Boolean) {
+  user(username: $username) {
+    avatar
+  }
+  recipes(username: $username, isPublic: $isPublic) {
+    _id
+    recipeName
+    shortDescription
+    image
   }
 }
 `

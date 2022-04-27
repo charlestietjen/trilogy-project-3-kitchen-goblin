@@ -79,8 +79,8 @@ mutation SignS3($name: String!, $type: String!, $uploadedBy: String!, $category:
 `
 
 export const UPDATE_RECIPE = gql`
-mutation UpdateRecipe($id: String!, $recipeName: String, $image: String, $shortDescription: String, $steps: [stepInput], $ingredients: [ingredientInput], $isPublic: Boolean) {
-  updateRecipe(_id: $id, recipeName: $recipeName, image: $image, shortDescription: $shortDescription, steps: $steps, ingredients: $ingredients, isPublic: $isPublic) {
+mutation UpdateRecipe($recipeId: String!, $recipeName: String, $image: String, $shortDescription: String, $steps: [stepInput], $ingredients: [ingredientInput], $isPublic: Boolean) {
+  updateRecipe(recipeId: $recipeId, recipeName: $recipeName, image: $image, shortDescription: $shortDescription, steps: $steps, ingredients: $ingredients, isPublic: $isPublic) {
     _id
   }
 }
