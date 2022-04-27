@@ -25,9 +25,9 @@ import { UPDATE_RECIPE } from '../../utils/mutations'
 import { ImageUpload } from '../../components';
 export const EditRecipe = () => {
     const { id } = useParams()
-	const {loading, data} = useQuery(QUERY_RECIPE, {
-		variables: { id: id}
-	})
+    const { loading, data } = useQuery(QUERY_RECIPE, {
+        variables: { id: id }
+    })
     const [formState, setFormState] = useState({
         ingredients: [],
         steps: [],
@@ -36,26 +36,26 @@ export const EditRecipe = () => {
     const navigate = useNavigate()
 
     const handleChange = e => {
-        if (e.target.name.split('.').shift() === 'ingredientName' || e.target.name.split('.').shift() === 'quantity'){
+        if (e.target.name.split('.').shift() === 'ingredientName' || e.target.name.split('.').shift() === 'quantity') {
             let newState = [...formState.ingredients]
             let index = e.target.name.split('.').pop()
-            let newElement = {...newState[index]}
+            let newElement = { ...newState[index] }
             let target = e.target.name.split('.').shift();
             newElement[target] = e.target.value;
             newState[index] = newElement
-            setFormState({...formState, ingredients: newState})
+            setFormState({ ...formState, ingredients: newState })
             return;
-        } else if (e.target.name.split('.').shift() === 'text' || e.target.name.split('.').shift() === 'image'){
+        } else if (e.target.name.split('.').shift() === 'text' || e.target.name.split('.').shift() === 'image') {
             let newState = [...formState.steps]
             let index = e.target.name.split('.').pop()
-            let newElement = {...newState[index]}
+            let newElement = { ...newState[index] }
             let target = e.target.name.split('.').shift();
             newElement[target] = e.target.value;
             newState[index] = newElement
-            setFormState({...formState, steps: newState})
+            setFormState({ ...formState, steps: newState })
             return;
         }
-        setFormState({...formState, [e.target.name]:e.target.value || e.target.checked})
+        setFormState({ ...formState, [e.target.name]: e.target.value || e.target.checked })
     }
     const handleStepImage = imageData => {
         const { url } = imageData;
@@ -63,31 +63,31 @@ export const EditRecipe = () => {
         const i = imageData.properties.index;
         const newSteps = formState.steps;
         newSteps[i].image = url;
-        setFormState({...formState, steps: newSteps});
+        setFormState({ ...formState, steps: newSteps });
     }
     const handleTitleImage = e => {
         const { url } = e;
-        setFormState({...formState, image: url});
+        setFormState({ ...formState, image: url });
     };
     const addStep = () => {
         let newSteps = formState.steps;
-        newSteps.push({text: '', image: ''});
-        setFormState({...formState, steps: newSteps});
+        newSteps.push({ text: '', image: '' });
+        setFormState({ ...formState, steps: newSteps });
     };
     const removeStep = () => {
         let newSteps = formState.steps;
         newSteps.pop();
-        setFormState({...formState, steps: newSteps});
+        setFormState({ ...formState, steps: newSteps });
     };
     const addIngredient = () => {
         let newIngredients = formState.ingredients
-        newIngredients.push({ingredientName: '', quantity: ''})
-        setFormState({...formState, ingredients: newIngredients});
+        newIngredients.push({ ingredientName: '', quantity: '' })
+        setFormState({ ...formState, ingredients: newIngredients });
     };
     const removeIngredient = () => {
         let newIngredients = formState.ingredients;
         newIngredients.pop();
-        setFormState({...formState, ingredients: newIngredients});
+        setFormState({ ...formState, ingredients: newIngredients });
     };
     const handleSubmit = async e => {
         e.preventDefault()
@@ -102,99 +102,102 @@ export const EditRecipe = () => {
                 isPublic: formState.isPublic,
             }
         })
-        if (mutationData){
+        if (mutationData) {
             window.location.assign(`/recipe/${id}`);
         } else {
             console.log('Something went wrong.')
         }
     }
     useEffect(() => {
-        if (data){
+        if (data) {
             const recipeData = stripTypenames(data.recipe.recipe)
             setFormState(
                 {
-                recipeName: recipeData.recipeName,
-                image: recipeData.image,
-                ingredients: recipeData.ingredients,
-                shortDescription: recipeData.shortDescription,
-                steps: recipeData.steps,
-                username: recipeData.username,
-            }
-        )
+                    recipeName: recipeData.recipeName,
+                    image: recipeData.image,
+                    ingredients: recipeData.ingredients,
+                    shortDescription: recipeData.shortDescription,
+                    steps: recipeData.steps,
+                    username: recipeData.username,
+                }
+            )
         }
-    },[data])
+    }, [data])
     return (
         <>
-            {loading?(
+            {loading ? (
                 <SpinnerFullPage />
-            ):('')}
-            {formState.recipeName?(
+            ) : ('')}
+            {formState.recipeName ? (
                 <Stack align='center' paddingTop={3} paddingBottom={'2em'}>
-                <form onSubmit={handleSubmit} onChange={handleChange}>
-                    <FormControl align='center' w={'40vmax'}>
-                        <FormLabel>Recipe Title</FormLabel>
-                        <Editable placeholder='Enter a title...' defaultValue={formState.recipeName}>
-                            <EditablePreview />
-                            <EditableInput name='recipeName' w={'40vmax'} textAlign='center' fontSize={'1.5rem'} />
-                        </Editable>
-                        <FormLabel>Recipe Title Image</FormLabel>
-                        <ImageUpload callback={handleTitleImage} properties={{uploadedBy: formState.username, category: 'recipe', src: formState.image}} />
-                        <FormLabel>Recipe Description</FormLabel>
-                        <Editable defaultValue={formState.shortDescription}>
-                            <EditablePreview />
-                            <EditableTextarea name='shortDescription' />
-                        </Editable>
-                        <Box align={'left'}>
-                            <FormLabel>Public Recipe</FormLabel>
-                            <Switch name='isPublic' />
-                        </Box>
-                        <Box display={'flex'} justifyContent={'space-evenly'} marginY={'1em'}>
-                                <Button type='submit'>Submit</Button><Button onClick={() => {navigate(-1)}}>Cancel</Button>
-                        </Box>
-                        <FormLabel>Ingredients</FormLabel>
-                        <SimpleGrid padding={1} border={'solid'} bg={'blackAlpha.500'} columns={2}>
-                            <VStack divider={<Divider />} mr={6}>{formState.ingredients.map(({ ingredientName }, i) => (
-                                <Editable key={i} defaultValue={ingredientName}>
-                                    <EditablePreview />
-                                    <EditableInput name={`ingredientName.${i}`} /> 
-                                </Editable>
-                                ))}</VStack>
-                                <VStack divider={<Divider />}>{formState.ingredients.map(({ quantity }, i) => (
-                                    <Editable key={i} defaultValue={quantity}>
-                                        <EditablePreview />
-                                        <EditableInput name={`quantity.${i}`} />
-                                    </Editable>
-                                ))}</VStack>
-                            </SimpleGrid>
+                    <form onSubmit={handleSubmit} onChange={handleChange}>
+                        <FormControl align='center' w={'40vmax'}>
+                            <FormLabel>Recipe Title</FormLabel>
+                            <Editable placeholder='Enter a title...' defaultValue={formState.recipeName}>
+                                <EditablePreview />
+                                <EditableInput name='recipeName' w={'40vmax'} textAlign='center' fontSize={'1.5rem'} />
+                            </Editable>
+                            <FormLabel>Recipe Title Image</FormLabel>
+                            <ImageUpload callback={handleTitleImage} properties={{ uploadedBy: formState.username, category: 'recipe', src: formState.image }} />
+                            <FormLabel>Recipe Description</FormLabel>
+                            <Editable placeholder='Enter a description' defaultValue={formState.shortDescription}>
+                                <EditablePreview />
+                                <EditableTextarea name='shortDescription' />
+                            </Editable>
+                            <Box align={'left'}>
+                                <FormLabel>Public Recipe</FormLabel>
+                                <Switch name='isPublic' />
+                            </Box>
+                            <Box display={'flex'} justifyContent={'space-evenly'} marginY={'1em'}>
+                                <Button type='submit'>Submit</Button><Button onClick={() => { navigate(-1) }}>Cancel</Button>
+                            </Box>
+                            <FormLabel>Ingredients</FormLabel>
+                            <VStack padding={1} border={'solid'} bg={'blackAlpha.500'}>
+                                {formState.ingredients.map(({ ingredientName, quantity }, i) => (
+                                    <Box w={'100%'} key={i}>
+                                        <SimpleGrid w={'100%'} columns={2}>
+                                            <Editable placeholder='Ingredient name...' defaultValue={ingredientName}>
+                                                <EditablePreview />
+                                                <EditableInput name={`ingredientName.${i}`} />
+                                            </Editable>
+                                            <Editable placeholder='Quantity...' defaultValue={quantity}>
+                                                <EditablePreview />
+                                                <EditableInput name={`quantity.${i}`} />
+                                            </Editable>
+                                        </SimpleGrid>
+                                        <Divider />
+                                    </Box>
+                                ))}
+                            </VStack>
                             <SimpleGrid columns={2}>
                                 <IconButton icon={<AddIcon />} onClick={addIngredient} margin={4} />
-                                {formState.ingredients.length>1?(
+                                {formState.ingredients.length > 1 ? (
                                     <IconButton icon={<MinusIcon />} margin={4} onClick={removeIngredient} />
-                                ):('')}
+                                ) : ('')}
                             </SimpleGrid>
                             {formState.steps.map(({ text, image }, i) => (
                                 <Box textAlign={'left'} w='90%' key={i}>
-                                    <FormLabel fontWeight={'bold'} m={1}>Step {i+1}</FormLabel>
-                                    <Editable defaultValue={text}>
+                                    <FormLabel fontWeight={'bold'} m={1}>Step {i + 1}</FormLabel>
+                                    <Editable placeholder='Enter directions...' defaultValue={text}>
                                         <EditablePreview />
                                         <EditableTextarea name={`text.${i}`} rows={8} />
                                     </Editable>
-                                    <ImageUpload callback={handleStepImage} properties={{category: 'step', uploadedBy: formState.username, index: i, src: image}} options={{size: ['20vmax', null, '16vmax']}}/>
+                                    <ImageUpload callback={handleStepImage} properties={{ category: 'step', uploadedBy: formState.username, index: i, src: image }} options={{ size: ['20vmax', null, '16vmax'] }} />
                                 </Box>
                             ))}
                             <SimpleGrid columns={2}>
                                 <IconButton icon={<AddIcon />} onClick={addStep} margin={4} />
-                                {formState.steps.length>1?(
+                                {formState.steps.length > 1 ? (
                                     <IconButton icon={<MinusIcon />} margin={4} onClick={removeStep} />
-                                ):('')}
+                                ) : ('')}
                             </SimpleGrid>
                             <Box display={'flex'} justifyContent={'space-evenly'} marginTop={'1em'}>
-                                <Button type='submit'>Submit</Button><Button onClick={() => {navigate(-1)}}>Cancel</Button>
+                                <Button type='submit'>Submit</Button><Button onClick={() => { navigate(-1) }}>Cancel</Button>
                             </Box>
                         </FormControl>
                     </form>
-              </Stack>
-            ):('')}
+                </Stack>
+            ) : ('')}
         </>
     )
 }
