@@ -4,7 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@ap
 import { createUploadLink } from 'apollo-upload-client';
 import { setContext } from '@apollo/client/link/context';
 import { StoreProvider } from './utils/GlobalState';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme, cookieStorageManager, localStorageManager } from '@chakra-ui/react';
 import { Header } from './components';
 import { Login, Landing, Signup, SignupAvatar, Dashboard, AddRecipe, RecipeDetails, User, EditRecipe, AddCook } from './pages';
 import Auth from './utils/auth';
@@ -31,16 +31,24 @@ const client = new ApolloClient({
 
 const config = {
   initialColorMode: 'dark',
-  useSystemColorMode: true
+  useSystemColorMode: true,
+  colors: {
+    
+  }
 }
 
 const theme = extendTheme({ config })
 
-function App() {
+function App({ cookies }) {
   return (
     <ApolloProvider client={client}>
         <StoreProvider>
-          <ChakraProvider resetCSS theme={theme}>
+          <ChakraProvider resetCSS theme={theme}
+          colorModeManager={
+            typeof cookies === 'string'
+            ? cookieStorageManager(cookies)
+            : localStorageManager
+          }>
             <Header />
             <Routes>
               {Auth.loggedIn()?(
@@ -65,6 +73,12 @@ function App() {
         </StoreProvider>
     </ApolloProvider>
   );
+}
+
+App.getInitialProps = ({ req }) => {
+  return {
+    cookies: req.headers.cookie ?? '',
+  }
 }
 
 export default App;
