@@ -10,7 +10,7 @@ import {
 
 export const Search = () => {
     return (
-    <Grid alignSelf='center' w='35vmax' display='flex' gap={1}>
+    <Grid boxShadow={'lg'} alignSelf='center' w='35vmax' display='flex' gap={1}>
         <GridItem w='100%'>
             <Input />
         </GridItem>

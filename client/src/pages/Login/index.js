@@ -58,7 +58,7 @@ export const Login = () => {
         <Stack paddingTop={'10em'} display='flex' align='center'>
             <Text>Enter your email and password below to login.</Text>
             <form onSubmit={handleSubmit}>
-                <FormControl onChange={handleChange} isInvalid={!formState.isValid} padding={['2vmax']} border='solid' borderRadius='5%' bg='blackAlpha.500' shadow='outline' w={['40vmax', null, '45vh']} >
+                <FormControl onChange={handleChange} isInvalid={!formState.isValid} padding={['2vmax']} borderRadius='5%' bg='blackAlpha.500' shadow='dark-lg' w={['40vmax', null, '45vh']} >
                     <FormLabel htmlFor='email'>Email address</FormLabel>
                     <Input id='email' type='email' />
                     <FormLabel htmlFor='password'>Password</FormLabel>

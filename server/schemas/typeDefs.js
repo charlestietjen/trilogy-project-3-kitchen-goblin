@@ -101,7 +101,7 @@ type Mutation {
     login(email: String!, password: String!): Auth
     addRecipe(recipeName: String!, shortDescription: String!, steps: [stepInput]!, ingredients: [ingredientInput]!, isPublic: Boolean!, image: String, username: String): Recipe
     addCook(notes: String, steps: [stepInput], ingredients: [ingredientInput], image: String, recipeId: String): Cook
-    updateUser(_id: String!, username: String, email: String, password: String, avatar: String): Auth
+    updateUser(userId: String!, username: String, email: String, password: String, avatar: String): Auth
     signS3(name: String!, type: String!, category: String!, uploadedBy: String!): S3
     updateRecipe(recipeId: String!, recipeName: String, image: String, shortDescription: String, steps: [stepInput], ingredients: [ingredientInput], isPublic: Boolean): Recipe
     deleteRecipe(_id: String!): Recipe

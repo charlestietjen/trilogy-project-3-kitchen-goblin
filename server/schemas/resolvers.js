@@ -46,8 +46,8 @@ const resolvers = {
 
             return { token, user };
         },
-        updateUser: async(parent, args, { _id }) => {
-            const user = await User.findOneAndUpdate(_id, args, {new: true})
+        updateUser: async(parent, args) => {
+            const user = await User.findOneAndUpdate({_id: args.userId}, args, {new: true})
             const token = signToken(user);
 
             return { token, user};
@@ -100,10 +100,10 @@ const resolvers = {
             return {signedRequest, url:`https://${S3_BUCKET}.s3.amazonaws.com/img/${category}/${imageData._id}.${ext}`, fileName: fileName};
         },
         updateRecipe: async(parent, args, { recipeId }) => {
-            return await Recipe.findOneAndUpdate(recipeId, args, {new: true})
+            return await Recipe.findOneAndUpdate({_id: args.recipeId}, args, {new: true})
         },
-        deleteRecipe: async(parent, { _id }) => {
-            return await Recipe.findOneAndDelete(_id)
+        deleteRecipe: async(parent, args) => {
+            return await Recipe.findOneAndDelete({_id: args._id})
         },
         addCook: async(parent, args, { recipeId }) => {
             const cookData = await Cook.create(args)

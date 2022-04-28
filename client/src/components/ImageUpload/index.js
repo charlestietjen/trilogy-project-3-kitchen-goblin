@@ -24,6 +24,7 @@ export const ImageUpload = ({ callback, properties, options = {} }) => {
             if (xhr.readyState === 4){
                 if(xhr.status === 200){
                     console.log('Image uploaded');
+                    callback({url: formState.signS3.url, properties});
                 } else if (xhr.status === 400) {
                     console.log(xhr.response);
                     return;
@@ -31,7 +32,6 @@ export const ImageUpload = ({ callback, properties, options = {} }) => {
             }
         }
         xhr.send(formState.image.image);
-        callback({url: formState.signS3.url, properties});
     }
     const handleChange = async e => {
         if (!e.target.files[0]){
@@ -52,7 +52,7 @@ export const ImageUpload = ({ callback, properties, options = {} }) => {
         <Box align='center'>
             {isAvatar?(<Image borderRadius={'full'} onClick={handleClick} boxSize={size} src={formState.previewUrl} />):(<Image onClick={handleClick} boxSize={size} src={formState.previewUrl} />)} 
             <input ref={hiddenInput} onChange={handleChange} type='file' accept='image/*' hidden />
-            {data?(<Button onClick={handleSubmit} type='submit' margin={2}>Upload</Button>):(<Button isDisabled margin={2}>Upload</Button>)}
+            {data?(<Button boxShadow={'dark-lg'} onClick={handleSubmit} type='submit' margin={2}>Upload</Button>):(<Button boxShadow={'dark-lg'} isDisabled margin={2}>Upload</Button>)}
         </Box>
     )
 };

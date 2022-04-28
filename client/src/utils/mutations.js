@@ -55,8 +55,8 @@ mutation AddRecipe($recipeName: String!, $shortDescription: String!, $steps: [st
 `
 
 export const UPDATE_USER = gql`
-    mutation UpdateUser($_id: String!, $username: String, $email: String, $password: String, $avatar: String) {
-        updateUser(_id: $_id, username: $username, email: $email, password: $password, avatar: $avatar) {
+    mutation UpdateUser($userId: String!, $username: String, $email: String, $password: String, $avatar: String) {
+        updateUser(userId: $userId, username: $username, email: $email, password: $password, avatar: $avatar) {
             token
             user {
                 _id
@@ -87,8 +87,8 @@ mutation UpdateRecipe($recipeId: String!, $recipeName: String, $image: String, $
 `
 
 export const DELETE_RECIPE = gql`
-mutation DeleteRecipe($id: String!) {
-    deleteRecipe(_id: $id) {
+mutation DeleteRecipe($_id: String!) {
+    deleteRecipe(_id: $_id) {
         _id
     }
 }

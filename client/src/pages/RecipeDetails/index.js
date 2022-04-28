@@ -1,4 +1,4 @@
-import React from 'react'
+import { React, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { QUERY_RECIPE } from '../../utils/queries'
 import { DELETE_RECIPE } from '../../utils/mutations'
@@ -41,7 +41,7 @@ export const RecipeDetails = () => {
 	const handleDelete = async e => {
 		const mutationResponse = await deleteRecipe({
 			variables: {
-				id: id
+				_id: id
 			}
 		})
 		if (!mutationResponse) return
@@ -64,24 +64,24 @@ export const RecipeDetails = () => {
 									<Tab as={Link} to={`addcook`}><AddIcon /></Tab>
 								) : ('')}
 							</TabList>
-							<Stack w={['20em', null, '60em']} align={'center'} alignContent='center' paddingTop={7}>
-								<Heading w={'40vmax'} textAlign='center' fontSize={'1.5rem'}>{recipeName}</Heading>
+							<Stack marginBottom={4} border={'solid thin'} boxShadow={'xl'} w={['20em', null, '60em']} align={'center'} alignContent='center' paddingTop={7}>
+								<Heading textShadow={'1px 0px black'} w={'40vmax'} textAlign='center' fontSize={'1.5rem'}>{recipeName}</Heading>
 								<TabPanels>
 									<TabPanel align={'center'}>
 										<SimpleGrid w={'90%'} columns={2} margin={3}>
-											<Box w={'max'}>
+											<Box boxShadow={'xl'} w={'max'} h={'max'}>
 												<AvatarTag avatar={avatar} username={username} />
 											</Box>
-											<Image w={'100%'} src={image} />
+											<Image alt={`A picture of ${recipeName}`} boxShadow={'2xl'} borderRadius={5} w={'100%'} src={image} />
 										</SimpleGrid>
 										{Auth.loggedIn() ? (
 											<>
 												{_id === Auth.getProfile().data._id &&
 													<SimpleGrid columns={2} spacing={'3em'}>
-														<Button as={Link} to={`/recipe/${data.recipe.recipe._id}/edit`}><EditIcon marginRight={1} />Edit Recipe</Button>
+														<Button boxShadow={'dark-lg'} colorScheme={'action'} as={Link} to={`/recipe/${data.recipe.recipe._id}/edit`}><EditIcon marginRight={1} />Edit Recipe</Button>
 														<Popover>
 															<PopoverTrigger>
-																<Button><DeleteIcon marginRight={1} />Delete Recipe</Button>
+																<Button boxShadow={'dark-lg'} colorScheme={'action'}><DeleteIcon marginRight={1} />Delete Recipe</Button>
 															</PopoverTrigger>
 															<PopoverContent w={'max'}>
 																<PopoverArrow />
@@ -102,36 +102,8 @@ export const RecipeDetails = () => {
 										<Container marginY={2}>
 											{shortDescription}
 										</Container>
-										<Text margin={2}>Ingredients</Text>
-										<VStack marginY={2} border={'solid'} bg={'blackAlpha.500'}>
-										{ingredients.map(({ ingredientName, quantity }, i) => (
-											<Box w={'100%'} key={i}>
-											<SimpleGrid w={'100%'} columns={2}>
-												<Box textAlign={'center'}>
-													{ingredientName}
-												</Box>
-												<Box textAlign={'center'}>
-													{quantity}
-												</Box>
-											</SimpleGrid>
-											<Divider />
-											</Box>
-										))}
-										</VStack>
-										{steps.map(({ text, image }, i) => (
-											<Box display={'flex'} w='90%' key={i}>
-												<Text fontWeight={'bold'} m={1}>Step {i + 1}</Text>
-												<Container textAlign={'left'} paddingBottom={'1.5em'}>{text}</Container>
-												<Image src={image} />
-											</Box>
-										))}
-									</TabPanel>
-									{cooks.map(({ image, steps, ingredients, notes }, i) => (
-										<TabPanel key={i}>
-											<Image boxSize={'50%'} src={image} />
-											<Container>{notes}</Container>
-											<Text>Ingredients</Text>
-											<VStack border={'solid'} bg={'blackAlpha.500'}>
+										<Text fontWeight={'bold'} margin={2}>Ingredients</Text>
+										<VStack boxShadow={'dark-lg'} marginY={2} border={['solid thin']} bg={'blackAlpha.500'}>
 											{ingredients.map(({ ingredientName, quantity }, i) => (
 												<Box w={'100%'} key={i}>
 													<SimpleGrid w={'100%'} columns={2}>
@@ -145,7 +117,9 @@ export const RecipeDetails = () => {
 													<Divider />
 												</Box>
 											))}
-											</VStack>
+										</VStack>
+										<Stack boxShadow={'lg'} marginTop={6}>
+											<Text fontWeight={'bold'}>Directions</Text>
 											{steps.map(({ text, image }, i) => (
 												<Box display={'flex'} w='90%' key={i}>
 													<Text fontWeight={'bold'} m={1}>Step {i + 1}</Text>
@@ -153,6 +127,39 @@ export const RecipeDetails = () => {
 													<Image src={image} />
 												</Box>
 											))}
+										</Stack>
+									</TabPanel>
+									{cooks.map(({ image, steps, ingredients, notes }, i) => (
+										<TabPanel key={i}>
+											<Image alt={`A picture of ${recipeName}`} boxShadow={'2xl'} borderRadius={5} boxSize={'50%'} src={image} />
+											<Text marginY={1} fontWeight={'bold'}>Notes</Text>
+											<Container>{notes}</Container>
+											<Text marginY={2} fontWeight={'bold'}>Ingredients</Text>
+											<VStack border={'solid thin'} bg={'blackAlpha.500'}>
+												{ingredients.map(({ ingredientName, quantity }, i) => (
+													<Box w={'100%'} key={i}>
+														<SimpleGrid w={'100%'} columns={2}>
+															<Box textAlign={'center'}>
+																{ingredientName}
+															</Box>
+															<Box textAlign={'center'}>
+																{quantity}
+															</Box>
+														</SimpleGrid>
+														<Divider />
+													</Box>
+												))}
+											</VStack>
+											<Stack boxShadow={'lg'} marginTop={6}>
+												<Text fontWeight={'bold'}>Directions</Text>
+												{steps.map(({ text, image }, i) => (
+													<Box display={'flex'} w='90%' key={i}>
+														<Text fontWeight={'bold'} m={1}>Step {i + 1}</Text>
+														<Container textAlign={'left'} paddingBottom={'1.5em'}>{text}</Container>
+														<Image src={image} />
+													</Box>
+												))}
+											</Stack>
 										</TabPanel>
 									))}
 								</TabPanels>

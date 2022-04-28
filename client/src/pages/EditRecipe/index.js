@@ -131,16 +131,16 @@ export const EditRecipe = () => {
             {formState.recipeName ? (
                 <Stack align='center' paddingTop={3} paddingBottom={'2em'}>
                     <form onSubmit={handleSubmit} onChange={handleChange}>
-                        <FormControl align='center' w={'40vmax'}>
+                        <FormControl boxShadow={'dark-lg'} padding={2} align='center' w={'23em'}>
                             <FormLabel>Recipe Title</FormLabel>
-                            <Editable placeholder='Enter a title...' defaultValue={formState.recipeName}>
+                            <Editable boxShadow={'2xl'} placeholder='Enter a title...' defaultValue={formState.recipeName}>
                                 <EditablePreview />
                                 <EditableInput name='recipeName' w={'40vmax'} textAlign='center' fontSize={'1.5rem'} />
                             </Editable>
                             <FormLabel>Recipe Title Image</FormLabel>
                             <ImageUpload callback={handleTitleImage} properties={{ uploadedBy: formState.username, category: 'recipe', src: formState.image }} />
                             <FormLabel>Recipe Description</FormLabel>
-                            <Editable placeholder='Enter a description' defaultValue={formState.shortDescription}>
+                            <Editable boxShadow={'2xl'} placeholder='Enter a description' defaultValue={formState.shortDescription}>
                                 <EditablePreview />
                                 <EditableTextarea name='shortDescription' />
                             </Editable>
@@ -149,7 +149,7 @@ export const EditRecipe = () => {
                                 <Switch name='isPublic' />
                             </Box>
                             <Box display={'flex'} justifyContent={'space-evenly'} marginY={'1em'}>
-                                <Button onClick={() => { navigate(-1) }}>Cancel</Button>
+                                <Button boxShadow={'dark-lg'} onClick={() => { navigate(-1) }}>Cancel</Button>
                             </Box>
                             <FormLabel>Ingredients</FormLabel>
                             <VStack padding={1} border={'solid'} bg={'blackAlpha.500'}>
@@ -170,9 +170,9 @@ export const EditRecipe = () => {
                                 ))}
                             </VStack>
                             <SimpleGrid columns={2}>
-                                <IconButton icon={<AddIcon />} onClick={addIngredient} margin={4} />
+                                <IconButton boxShadow={'dark-lg'} icon={<AddIcon />} onClick={addIngredient} margin={4} />
                                 {formState.ingredients.length > 1 ? (
-                                    <IconButton icon={<MinusIcon />} margin={4} onClick={removeIngredient} />
+                                    <IconButton boxShadow={'dark-lg'} icon={<MinusIcon />} margin={4} onClick={removeIngredient} />
                                 ) : ('')}
                             </SimpleGrid>
                             {formState.steps.map(({ text, image }, i) => (
@@ -186,13 +186,13 @@ export const EditRecipe = () => {
                                 </Box>
                             ))}
                             <SimpleGrid columns={2}>
-                                <IconButton icon={<AddIcon />} onClick={addStep} margin={4} />
+                                <IconButton boxShadow={'dark-lg'} icon={<AddIcon />} onClick={addStep} margin={4} />
                                 {formState.steps.length > 1 ? (
-                                    <IconButton icon={<MinusIcon />} margin={4} onClick={removeStep} />
+                                    <IconButton boxShadow={'dark-lg'} icon={<MinusIcon />} margin={4} onClick={removeStep} />
                                 ) : ('')}
                             </SimpleGrid>
                             <Box display={'flex'} justifyContent={'space-evenly'} marginTop={'1em'}>
-                                <Button type='submit'>Submit</Button><Button onClick={() => { navigate(-1) }}>Cancel</Button>
+                                <Button boxShadow={'dark-lg'} type='submit'>Submit</Button><Button boxShadow={'dark-lg'} onClick={() => { navigate(-1) }}>Cancel</Button>
                             </Box>
                         </FormControl>
                     </form>

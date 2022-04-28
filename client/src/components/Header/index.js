@@ -14,7 +14,8 @@ import {
     Icon,
     useColorMode,
     SimpleGrid,
-    HStack
+    HStack,
+    Image,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
@@ -30,10 +31,10 @@ export const Header = () => {
     const { colorMode, toggleColorMode } = useColorMode()
 
     return (
-        <Grid borderBottom={'solid'} display='flex'>
+        <Grid display='flex'>
             <GridItem w='10%'>
                 <Menu isLazy>
-                    <MenuButton m={2} w={[10, 20]} h={[10, 20]} as={IconButton} aria-label='Options' icon={<HamburgerIcon fontSize={['x-large', 'xx-large']} />} variant="outline" />
+                    <MenuButton boxShadow={'dark-lg'} marginX={3} marginY={7} w={[10, 20]} h={[10, 20]} as={IconButton} aria-label='Options' icon={<HamburgerIcon fontSize={['x-large', 'xx-large']} />} variant="outline" />
                     <MenuList>
                         {Auth.loggedIn() ?
                             <>
@@ -60,10 +61,11 @@ export const Header = () => {
                     </MenuList>
                 </Menu>
             </GridItem>
-            <GridItem w={'100%'}>
-                <HStack display={'flex'} justifyContent={'space-evenly'} spacing={3} marginLeft={2}>
-                    <Heading m={2} fontSize={['4vmax', null, null, '3.5vmax']} textAlign='center'><Link as={RouterLink} to='/'>Kitchen Goblin</Link></Heading>
-                    {colorMode === 'dark'?(<IconButton onClick={toggleColorMode} borderRadius={'full'} icon={<SunIcon />} />):(<IconButton onClick={toggleColorMode} borderRadius={'full'} icon={<MoonIcon />} />)}
+            <GridItem w={'85%'}>
+                <HStack display={'flex'} justifyContent={'center'}>
+                    {/* <Heading m={2} fontSize={['4vmax', null, null, '3.5vmax']} textAlign='center'><Link as={RouterLink} to='/'>Kitchen Goblin</Link></Heading> */}
+                    <Link marginLeft={2} as={RouterLink} to={'/'}><Image src={require('../../assets/img/header.webp')} /></Link>
+                    {colorMode === 'dark'?(<IconButton boxShadow={'dark-lg'} onClick={toggleColorMode} borderRadius={'full'} icon={<SunIcon />} />):(<IconButton boxShadow={'dark-lg'} onClick={toggleColorMode} borderRadius={'full'} icon={<MoonIcon />} />)}
                 </HStack>
             </GridItem>
         </Grid>
