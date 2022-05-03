@@ -73,7 +73,7 @@ const resolvers = {
             let ext = filename.split('.').pop();
             let pathName = `./public/assets/img/${category}/${newImage._id}.${ext}`;
             await stream.pipe(fs.createWriteStream(pathName))
-            let src = `/assets/img/${category}/${newImage._id}.${ext}`;
+            let src = `./assets/img/${category}/${newImage._id}.${ext}`;
             newImage = await Image.findOneAndUpdate({ _id: newImage._id }, {src: src}, {new: true})
             return newImage;
         },
