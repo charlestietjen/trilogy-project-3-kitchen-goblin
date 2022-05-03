@@ -44,7 +44,7 @@ type ingredient{
 
 type step{
     text: String!
-    image: String!
+    image: String
 }
 
 input stepInput {

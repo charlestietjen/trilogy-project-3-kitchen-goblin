@@ -60,16 +60,15 @@ export const AddCook = () => {
         setFormState({ ...formState, [e.target.name]: e.target.value || e.target.checked })
     }
     const handleStepImage = imageData => {
-        const { url } = imageData;
-        console.log(imageData.properties)
+        const { src } = imageData;
         const i = imageData.properties.index;
         const newSteps = formState.steps;
-        newSteps[i].image = url;
+        newSteps[i].image = src;
         setFormState({ ...formState, steps: newSteps });
     }
     const handleTitleImage = e => {
-        const { url } = e;
-        setFormState({ ...formState, image: url });
+        const { src } = e;
+        setFormState({ ...formState, image: src });
     };
     const addStep = () => {
         let newSteps = formState.steps;

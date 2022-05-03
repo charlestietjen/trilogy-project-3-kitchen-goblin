@@ -49,8 +49,8 @@ export const RecipeDetails = () => {
 	}
 	return (
 		<>
-			{loading ? (<SpinnerFullPage />) : (
-				<Tabs isLazy orientation={'vertical'} size={'sm'}>
+			{loading? (<SpinnerFullPage />) : ('')}
+				{data? (<Tabs isLazy orientation={'vertical'} size={'sm'}>
 					<Box align={'center'}>
 						<SimpleGrid display={'flex'} columns={2}>
 							<TabList w={['15%', null, null, '25em']}>
@@ -167,7 +167,7 @@ export const RecipeDetails = () => {
 						</SimpleGrid>
 					</Box>
 				</Tabs>
-			)}
+			):('')}
 		</>
 	);
 };

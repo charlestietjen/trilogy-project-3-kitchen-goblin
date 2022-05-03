@@ -50,15 +50,15 @@ export const AddRecipe = () => {
         setFormState({ ...formState, steps: newSteps });
     };
     const handleStepImage = imageData => {
-        const { url } = imageData;
+        const { src } = imageData;
         const i = imageData.properties.index;
         const newSteps = formState.steps;
-        newSteps[i].image = url;
+        newSteps[i].image = src;
         setFormState({ ...formState, steps: newSteps });
     }
     const handleTitleImage = e => {
-        const { url } = e;
-        setFormState({ ...formState, image: url });
+        const { src } = e;
+        setFormState({ ...formState, image: src });
     };
     const handleChange = e => {
         if (e.target.name.split('.').shift() === 'ingredientName' || e.target.name.split('.').shift() === 'quantity') {

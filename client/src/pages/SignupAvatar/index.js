@@ -25,7 +25,7 @@ export const SignupAvatar = () => {
     const imageCallback = async imageData => {
         // setAvatarSrc(imageData.url)
         const mutationResponse = await updateUser({
-            variables: { userId: user._id, avatar: imageData.url}});
+            variables: { userId: user._id, avatar: imageData.src}});
         const token = mutationResponse.data.updateUser.token;
         if (mutationResponse.data){
             Auth.logout(true);
