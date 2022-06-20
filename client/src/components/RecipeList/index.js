@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 export const RecipeList = (props) => {
     let { recipes } = props;
     return (
-        <>
+        <Stack overflowY='scroll'>
             {recipes.map(recipe => (
                 <Box as={Link} to={`/recipe/${recipe._id}`} alignSelf='center' w={['20em', '22em', '25em', '40em']} boxShadow={'dark-lg'} borderRadius='5%' padding='1vmax' margin='1vmax' bg='brand.600' key={Math.floor(Math.random() * 65535)}>
                     <Stack display='flex' align='center'>
@@ -23,6 +23,6 @@ export const RecipeList = (props) => {
                     </Stack>
                 </Box>
             ))}
-        </>
+        </Stack>
     )
 }

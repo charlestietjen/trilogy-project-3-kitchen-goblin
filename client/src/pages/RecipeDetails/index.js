@@ -64,7 +64,7 @@ export const RecipeDetails = () => {
 									<Tab as={Link} to={`addcook`}><AddIcon /></Tab>
 								) : ('')}
 							</TabList>
-							<Stack marginBottom={4} border={'solid thin'} boxShadow={'xl'} w={['20em', null, '60em']} align={'center'} alignContent='center' paddingTop={7}>
+							<Stack overflowY={'scroll'} h='80vh' marginBottom={4} border={'solid thin'} boxShadow={'xl'} w={['20em', null, '60em']} align={'center'} alignContent='center' paddingTop={7}>
 								<Heading textShadow={'1px 0px black'} w={'40vmax'} textAlign='center' fontSize={'1.5rem'}>{recipeName}</Heading>
 								<TabPanels>
 									<TabPanel align={'center'}>

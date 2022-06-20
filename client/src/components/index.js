@@ -4,5 +4,6 @@ import { RecipeList } from './RecipeList';
 import { Search } from './Search';
 import { SpinnerFullPage } from './SpinnerFullPage';
 import { AvatarTag } from './AvatarTag';
+import { Nav } from './Nav'
 
-export { Header, ImageUpload, RecipeList, Search, SpinnerFullPage, AvatarTag };
+export { Header, ImageUpload, RecipeList, Search, SpinnerFullPage, AvatarTag, Nav };
