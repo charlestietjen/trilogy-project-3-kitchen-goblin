@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import { useStoreContext } from '../../utils/GlobalState'
-import { AddIcon } from '@chakra-ui/icons'
+import { AddIcon, AtSignIcon } from '@chakra-ui/icons'
 import { FiLogIn, FiLogOut } from 'react-icons/fi'
 import Auth from '../../utils/auth'
 
@@ -24,15 +24,18 @@ export const NavSubMenu = () => {
                 {Auth.loggedIn() ?
                     <>
                         <MenuItem onClick={handleLogout}>
-                            <Icon as={FiLogOut} /><Text>Log Out</Text>
+                            <Icon mr={1} as={FiLogOut} /><Text>Log Out</Text>
+                        </MenuItem>
+                        <MenuItem as={RouterLink} to='/account'>
+                            <Icon mr={1} as={AtSignIcon} /><Text>Account</Text>
                         </MenuItem>
                     </> :
                     <>
                         <MenuItem as={RouterLink} to='/login'>
-                            <Icon as={FiLogIn} /><Text>Log In</Text>
+                            <Icon mr={1} as={FiLogIn} /><Text>Log In</Text>
                         </MenuItem>
                         <MenuItem as={RouterLink} to='/signup'>
-                            <AddIcon /><Text>Sign Up</Text>
+                            <Icon mr={1} as={AddIcon} /><Text>Sign Up</Text>
                         </MenuItem>
                     </>}
             </MenuList>

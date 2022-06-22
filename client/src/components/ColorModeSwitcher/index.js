@@ -6,8 +6,8 @@ export const ColorModeSwitcher = () => {
     return (
         <>
             {colorMode === 'dark' ? (
-                <IconButton boxShadow={'dark-lg'} onClick={toggleColorMode} borderRadius={'full'} icon={<SunIcon />} />)
-                : (<IconButton boxShadow={'dark-lg'} onClick={toggleColorMode} borderRadius={'full'} icon={<MoonIcon />} />)}
+                <IconButton m={[3, null, 10]} boxShadow={'dark-lg'} onClick={toggleColorMode} borderRadius={'full'} icon={<SunIcon />} />)
+                : (<IconButton m={[3, null, 10]} boxShadow={'dark-lg'} onClick={toggleColorMode} borderRadius={'full'} icon={<MoonIcon />} />)}
         </>
     )
 }

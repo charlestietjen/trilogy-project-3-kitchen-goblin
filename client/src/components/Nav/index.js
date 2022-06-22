@@ -25,7 +25,7 @@ export const Nav = () => {
             </Box></Link>
             <Divider orientation="vertical" />
             {/* meal plan under cons. */}
-            <Link textAlign='center'><Box h='100%'>
+            <Link textAlign='center' as={RouterLink} to='/mealplan'><Box h='100%'>
                 <Icon fontSize={['xx-large']} as={FaCalendarAlt} />
                 <Text mb={2} fontSize={['small']}>Meal Plan</Text>
             </Box></Link>
