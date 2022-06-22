@@ -1,11 +1,12 @@
 import './App.css';
+import { useState, useEffect } from 'react'
 import { Routes, Route, Link as RouterLink } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { createUploadLink } from 'apollo-upload-client';
 import { setContext } from '@apollo/client/link/context';
 import { StoreProvider } from './utils/GlobalState';
 import { ChakraProvider, extendTheme, cookieStorageManager, localStorageManager, Box, Grid, GridItem } from '@chakra-ui/react';
-import { Header, Nav } from './components';
+import { Header, Nav, ColorModeSwitcher } from './components';
 import { Login, Landing, Signup, SignupAvatar, Dashboard, AddRecipe, RecipeDetails, User, EditRecipe, AddCook, } from './pages';
 import Auth from './utils/auth';
 
@@ -76,6 +77,15 @@ const colors = {
 const theme = extendTheme({ config, colors })
 
 function App({ cookies }) {
+  const [wHeight, setWHeight] = useState(window.innerHeight)
+
+  useEffect(() => {
+    function handleResize() {
+      setWHeight(window.innerHeight) 
+}
+
+    window.addEventListener('resize', handleResize)
+  })
   return (
     <ApolloProvider client={client}>
       <StoreProvider>
@@ -86,14 +96,19 @@ function App({ cookies }) {
               : localStorageManager
           }>
           <Grid
-            templateAreas={`"header"
-                          "content"
-                          "nav"`}
-            templateRows={['13vh 80vh 7vh']}>
+          h={wHeight}
+            templateAreas={`"colormode header"
+                          "content content"
+                          "nav nav"`}
+            templateRows={['13% 78% 9%']}
+            templateColumns={['7% 93%']}>
+            <GridItem alignSelf={'center'} area={'colormode'}>
+              <ColorModeSwitcher />
+            </GridItem>
             <GridItem area={'header'}>
               <Header />
             </GridItem>
-            <GridItem area={'content'}>
+            <GridItem overflowY='scroll' area={'content'}>
               <Routes>
                 {Auth.loggedIn() ? (
                   <>

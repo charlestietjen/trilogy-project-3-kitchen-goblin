@@ -5,5 +5,7 @@ import { Search } from './Search';
 import { SpinnerFullPage } from './SpinnerFullPage';
 import { AvatarTag } from './AvatarTag';
 import { Nav } from './Nav'
+import { NavSubMenu } from './NavSubmenu';
+import { ColorModeSwitcher } from './ColorModeSwitcher';
 
-export { Header, ImageUpload, RecipeList, Search, SpinnerFullPage, AvatarTag, Nav };
+export { Header, ImageUpload, RecipeList, Search, SpinnerFullPage, AvatarTag, Nav, NavSubMenu, ColorModeSwitcher };
