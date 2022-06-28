@@ -65,7 +65,7 @@ function App({ cookies }) {
             <GridItem justifySelf={['center', null, 'left']} w={'100%'} area={'header'}>
               <Header />
             </GridItem>
-            <GridItem overflowY='auto' scroll justifySelf='center' area={'content'}>
+            <GridItem overflowY='auto' justifySelf='center' area={'content'}>
               <Routes>
                 {Auth.loggedIn() ? (
                   <>

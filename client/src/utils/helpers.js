@@ -13,3 +13,7 @@ export const stripTypenames = value => {
       return value
     }
 }
+export const validatePassword = value => {
+  const exp =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,16}$/
+  return exp.test(value)
+}

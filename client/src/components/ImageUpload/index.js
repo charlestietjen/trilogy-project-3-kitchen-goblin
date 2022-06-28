@@ -27,7 +27,7 @@ export const ImageUpload = ({ callback, properties, options = {} }) => {
         if (!e.target.files[0]){
             return;
         }
-        if (e.target.files[0].size > maxSize){
+        if (e.target.files[0].size >= maxSize){
             setIsInvalid(true)
             return
         }
@@ -39,7 +39,7 @@ export const ImageUpload = ({ callback, properties, options = {} }) => {
                 <Image onClick={handleClick} boxSize={size} src={formState.previewUrl} />
                 <input ref={hiddenInput} onChange={handleChange} type='file' accept='image/*' hidden />
                 <Button onClick={handleSubmit} type='submit' margin={2}>Upload</Button>{loading?(<Spinner />):('')}{data?(<CheckIcon />):('')}
-                <FormErrorMessage>Image must be under {`${maxSize / 1000}kb`}</FormErrorMessage>
+                <FormErrorMessage>Image must be under {`${maxSize/1000}kb`}</FormErrorMessage>
             </FormControl>
         </Box>
     )
