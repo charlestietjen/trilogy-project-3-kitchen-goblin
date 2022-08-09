@@ -1,21 +1,49 @@
-import { React } from 'react'
+import { React, useState } from 'react'
 import {
     Image,
     Box,
     Stack,
     Text,
-    Heading
+    Heading,
+    Grid,
+    GridItem,
+    Input,
+    IconButton
 } from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
+import { Search } from '../';
 
 export const RecipeList = (props) => {
-    let { recipes } = props;
+    const { recipes } = props;
+    const [filteredRecipes, setFilteredRecipes] = useState([...recipes]);
+    const handleSearchInput = e => {
+        const { value } = e.target;
+        if (!value){
+            setFilteredRecipes([...recipes]);
+            return;
+        };
+        const newFilteredList = recipes.filter(ele => {
+            return ele.recipeName.toLowerCase().includes(value.toLowerCase());
+        });
+        setFilteredRecipes([...newFilteredList]);
+    };
     return (
         <Stack>
-            {recipes.map(recipe => (
-                <Box as={Link} to={`/recipe/${recipe._id}`} alignSelf='center' w={['85vw',null,'50vw']} boxShadow={'dark-lg'} borderRadius='5%' padding='1vmax' margin='1vmax' bg='blackAlpha.600' key={recipe._id}>
+            <Grid boxShadow={'lg'} alignSelf='center' w='35vmax' display='flex' gap={1}>
+                <GridItem w='100%'>
+                    <form>
+                        <Input onChange={handleSearchInput} />
+                    </form>
+                </GridItem>
+                <GridItem>
+                    <IconButton icon={<SearchIcon />} />
+                </GridItem>
+            </Grid>
+            {filteredRecipes.map(recipe => (
+                <Box as={Link} to={`/recipe/${recipe._id}`} alignSelf='center' w={['85vw', null, '50vw']} boxShadow={'dark-lg'} borderRadius='5%' padding='1vmax' margin='1vmax' bg='blackAlpha.600' key={recipe._id}>
                     <Stack display='flex' align='center'>
-                        <Heading fontSize={['1.2em', '1.3em', '1.6em','2em']}>{recipe.recipeName}</Heading>
+                        <Heading fontSize={['1.2em', '1.3em', '1.6em', '2em']}>{recipe.recipeName}</Heading>
                         <Image borderRadius={5} boxShadow={'dark-lg'} w='25vmax' src={recipe.image} />
                         <Text>
                             {recipe.shortDescription}

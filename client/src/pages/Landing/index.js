@@ -10,7 +10,6 @@ export const Landing = () => {
 
     return (
         <Stack paddingTop={3} display='flex'>
-            <Search />
             {loading?(<SpinnerFullPage />):(<RecipeList recipes={recipes} />)}
             
         </Stack>
