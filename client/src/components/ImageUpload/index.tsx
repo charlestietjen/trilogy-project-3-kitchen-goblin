@@ -6,29 +6,30 @@ import { useMutation } from '@apollo/client';
 import Compressor from 'compressorjs';
 
 
-export const ImageUpload = ({ callback, properties, options = {} }) => {
+export const ImageUpload = ({ callback, properties, options }: imageUpload) => {
     const [formState, setFormState] = useState({image: {...properties}, previewUrl: require('../../assets/img/avatar/placeholder.png')});
     const [uploadImage, { loading, data }] = useMutation(UPLOAD_IMAGE);
     const [isInvalid, setIsInvalid] = useState(false)
     const [uploadDisabled, setUploadDisabled] = useState(true)
-    const hiddenInput = useRef(null);
+    const hiddenInput = useRef();
     const size = options.size || 'm';
     const maxSize = options.max || 1000000;
     const maxWidth = options.maxWidth || 600;
     const maxHeight = options.maxHeight || 600;
 
     const handleClick = () => {
-        hiddenInput.current.click();
+        if (hiddenInput.current !== null){
+        hiddenInput.current.click()};
     }
-    const handleSubmit = async e => {
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         const mutationResponse = await uploadImage({
             variables: formState.image
         });
-        const { imageUpload } = mutationResponse.data;
+        const { imageUpload }: any = mutationResponse.data;
         callback({...imageUpload, properties});
     }
-    const handleChange = e => {
+    const handleChange = (e: { target: { files: (File | Blob)[]; }; }) => {
         if (!e.target.files[0]){
             return;
         }
@@ -51,7 +52,7 @@ export const ImageUpload = ({ callback, properties, options = {} }) => {
         <Box>
             <FormControl isInvalid={isInvalid}>
                 <Image onClick={handleClick} boxSize={size} src={formState.previewUrl} />
-                <input ref={hiddenInput} onChange={handleChange} type='file' accept='image/*' hidden />
+                <input ref={hiddenInput} onChange={() => handleChange} type='file' accept='image/*' hidden />
                 <Button isDisabled={uploadDisabled} onClick={handleSubmit} type='submit' margin={2}>Upload</Button>{loading?(<Spinner />):('')}{data?(<CheckIcon />):('')}
                 <FormErrorMessage>Image must be under {`${maxSize/1000}kb`}</FormErrorMessage>
             </FormControl>

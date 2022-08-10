@@ -1,8 +1,8 @@
 import decode from 'jwt-decode';
 
 class AuthService {
-    getProfile() {
-        return decode(this.getToken());
+    getProfile(){
+        return decode(this.getToken()!);
     }
 
     loggedIn() {
@@ -10,9 +10,9 @@ class AuthService {
         return !!token && !this.isTokenExpired(token);
     }
 
-    isTokenExpired(token) {
+    isTokenExpired(token: string) {
         try {
-            const decoded = decode(token);
+            const decoded: { data: { "username": string; "email": string; "_id": string; "avatar": string;}, "iat": number; "exp": number;} = decode(token);
             if (decoded.exp < Date.now() / 1000) {
                 return true;
             } else return false;
@@ -21,11 +21,14 @@ class AuthService {
         }
     }
 
-    getToken() {
-        return localStorage.getItem('id_token');
+    getToken(): string | null {
+        // if (localStorage.getItem('id_token') !== null){
+        // return localStorage.getItem('id_token')};
+        const token = localStorage.getItem('id_token');
+        return token;
     }
 
-    login(idToken, signup = false) {
+    login(idToken: string, signup = false) {
         localStorage.setItem('id_token', idToken);
 
         signup ? window.location.assign('/avatar') :
