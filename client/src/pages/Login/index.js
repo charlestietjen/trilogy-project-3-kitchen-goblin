@@ -8,7 +8,8 @@ import {
     Input,
     Text,
     Link,
-    Button
+    Button,
+    Center
  } from '@chakra-ui/react';
  import { useMutation } from '@apollo/client';
  import { useNavigate, Link as RouterLink } from 'react-router-dom';
@@ -53,9 +54,9 @@ export const Login = () => {
                 isValid: false,
             });
         }
-    }, [error]);
+    }, [error, formState]);
     return (
-        <Stack paddingTop={'10em'} display='flex' align='center'>
+        <Stack paddingTop={['10%', 0, 0]} display='flex' align='center'>
             <Text>Enter your email and password below to login.</Text>
             <form onSubmit={handleSubmit}>
                 <FormControl onChange={handleChange} isInvalid={!formState.isValid} padding={['2vmax']} borderRadius='5%' bg='blackAlpha.500' shadow='dark-lg' w={['40vmax', null, '45vh']} >

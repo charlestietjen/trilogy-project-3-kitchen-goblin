@@ -57,7 +57,7 @@ function App({ cookies }) {
             templateAreas={`"colormode header"
                           "content content"
                           "nav nav"`}
-            templateRows={['13% 76% 11%',null,'15% 74% 11%']}
+            templateRows={['13% 76% 11%',null,'15% 1fr 11%']}
             templateColumns={['10% 90%',null,'20% 80%']}>
             <GridItem alignSelf={'center'} justifySelf='left' area={'colormode'}>
               <ColorModeSwitcher />
@@ -65,7 +65,7 @@ function App({ cookies }) {
             <GridItem justifySelf={['center', null, 'left']} w={'100%'} area={'header'}>
               <Header />
             </GridItem>
-            <GridItem overflowY='auto' justifySelf='center' area={'content'}>
+            <GridItem overflowY='auto' justifySelf='center' area={'content'} w={'100%'}>
               <Routes>
                 {Auth.loggedIn() ? (
                   <>
@@ -92,6 +92,7 @@ function App({ cookies }) {
               </Routes>
             </GridItem>
             {/* nav */}
+            {/* {Auth.loggedIn() ? (<GridItem area={'nav'}><Nav /></GridItem>):('')} */}
             <GridItem area={'nav'}><Nav /></GridItem>
           </Grid>
         </ChakraProvider>
