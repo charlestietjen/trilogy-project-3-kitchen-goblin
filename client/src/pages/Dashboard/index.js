@@ -21,7 +21,7 @@ export const Dashboard = () => {
             <Search />
             <Button boxShadow={'dark-lg'}><Link to='/addRecipe'>Add Recipe</Link></Button>
             {loading? (<SpinnerFullPage /> ): (<></>)}
-            {recipes.length > 0 ? (<RecipeList recipes={recipes} />) : (<Text>Add a recipe to get started!</Text>)}
+            {recipes.length > 0 ? (<><Search array={recipes} /><RecipeList recipes={recipes} /></>) : (<Text>Add a recipe to get started!</Text>)}
         </Stack>
     )
 }
