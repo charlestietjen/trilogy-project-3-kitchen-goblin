@@ -40,7 +40,7 @@ const resolvers = {
         },
         recipegroup: async(parent, { array }) => {
             return await array.map( ele => {
-                return recipeData = Recipe.findOne({ ele })
+                return recipeData = Recipe.findOne({ _id: ele })
             });
         }
     },

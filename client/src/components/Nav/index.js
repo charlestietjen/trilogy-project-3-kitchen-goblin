@@ -6,7 +6,7 @@ import { NavSubMenu } from "../NavSubmenu"
 import Auth from '../../utils/auth'
 export const Nav = () => {
     return (
-        <Flex borderTop='solid gray thin' bg='blackAlpha.400' color='whiteAlpha' w='100%' h='100%' align='center' justifyContent={'space-evenly'}>
+        <Flex borderTop='solid gray thin' bg='blackAlpha.400' color='whiteAlpha' w='100%' h='100%' minH={'fit-content'} align='center' justifyContent={'space-evenly'}>
             {Auth.loggedIn() ? (
                 <>
                     {/* avatar to be rewritten as a menu w/account options */}

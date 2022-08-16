@@ -1,5 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react'
+import smartlook from 'smartlook-client';
 import { Routes, Route, Link as RouterLink } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { createUploadLink } from 'apollo-upload-client';
@@ -36,6 +37,7 @@ const theme = extendTheme({ config, colors })
 function App({ cookies }) {
   const [wHeight, setWHeight] = useState(window.innerHeight)
 
+  smartlook.init('4d6611d7bf45c1389c0a8e0ad9fa8baf9f3645dc')
   useEffect(() => {
     function handleResize() {
       setWHeight(window.innerHeight) 
@@ -93,7 +95,7 @@ function App({ cookies }) {
             </GridItem>
             {/* nav */}
             {/* {Auth.loggedIn() ? (<GridItem area={'nav'}><Nav /></GridItem>):('')} */}
-            <GridItem area={'nav'}><Nav /></GridItem>
+            <GridItem minH={'fit-content'} area={'nav'}><Nav /></GridItem>
           </Grid>
         </ChakraProvider>
       </StoreProvider>
