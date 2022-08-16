@@ -89,3 +89,13 @@ query User($username: String!, $isPublic: Boolean) {
   }
 }
 `
+
+export const QUERY_RECIPEGROUP = gql`
+query Recipegroup($array: [ID]!) {
+  recipegroup(array: $array) {
+    _id
+    recipeName
+    image
+  }
+}
+`

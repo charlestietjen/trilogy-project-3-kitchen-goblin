@@ -37,6 +37,11 @@ const resolvers = {
             recipeDetails.cooks = await Cook.find({ recipeId: _id })
             recipeDetails.user = await User.findOne({ username })
             return recipeDetails;
+        },
+        recipegroup: async(parent, { array }) => {
+            return await array.map( ele => {
+                return recipeData = Recipe.findOne({ _id: ele })
+            });
         }
     },
     Mutation: {

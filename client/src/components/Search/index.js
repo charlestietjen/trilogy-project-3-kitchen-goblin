@@ -8,7 +8,7 @@ import {
     SearchIcon
 } from '@chakra-ui/icons';
 
-export const Search = () => {
+export const Search = ({ recipes }) => {
     return (
     <Grid boxShadow={'lg'} alignSelf='center' w='35vmax' display='flex' gap={1}>
         <GridItem w='100%'>

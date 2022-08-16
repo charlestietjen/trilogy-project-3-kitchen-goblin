@@ -18,7 +18,6 @@ export const Dashboard = () => {
     const recipes = data?.recipes || [];
     return (
         <Stack spacing={5} display='flex' align='center' paddingTop={3}>
-            <Search />
             <Button boxShadow={'dark-lg'}><Link to='/addRecipe'>Add Recipe</Link></Button>
             {loading? (<SpinnerFullPage /> ): (<></>)}
             {recipes.length > 0 ? (<><Search array={recipes} /><RecipeList recipes={recipes} /></>) : (<Text>Add a recipe to get started!</Text>)}

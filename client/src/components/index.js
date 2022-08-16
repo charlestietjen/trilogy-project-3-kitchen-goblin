@@ -7,6 +7,7 @@ import { AvatarTag } from './AvatarTag';
 import { Nav } from './Nav'
 import { NavSubMenu } from './NavSubmenu';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Terms } from './Terms'
+import { Terms } from './Terms';
+import { Smartlook } from './Smartlook';
 
-export { Header, ImageUpload, RecipeList, Search, SpinnerFullPage, AvatarTag, Nav, NavSubMenu, ColorModeSwitcher, Terms };
+export { Header, ImageUpload, RecipeList, Search, SpinnerFullPage, AvatarTag, Nav, NavSubMenu, ColorModeSwitcher, Terms, Smartlook };

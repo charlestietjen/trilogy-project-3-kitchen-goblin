@@ -1,5 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react'
+import smartlook from 'smartlook-client';
 import { Routes, Route, Link as RouterLink } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { createUploadLink } from 'apollo-upload-client';
@@ -36,6 +37,7 @@ const theme = extendTheme({ config, colors })
 function App({ cookies }) {
   const [wHeight, setWHeight] = useState(window.innerHeight)
 
+  smartlook.init('4d6611d7bf45c1389c0a8e0ad9fa8baf9f3645dc')
   useEffect(() => {
     function handleResize() {
       setWHeight(window.innerHeight) 
@@ -57,7 +59,7 @@ function App({ cookies }) {
             templateAreas={`"colormode header"
                           "content content"
                           "nav nav"`}
-            templateRows={['13% 76% 11%',null,'15% 74% 11%']}
+            templateRows={['13% 76% 11%',null,'15% 1fr 11%']}
             templateColumns={['10% 90%',null,'20% 80%']}>
             <GridItem alignSelf={'center'} justifySelf='left' area={'colormode'}>
               <ColorModeSwitcher />
@@ -65,7 +67,7 @@ function App({ cookies }) {
             <GridItem justifySelf={['center', null, 'left']} w={'100%'} area={'header'}>
               <Header />
             </GridItem>
-            <GridItem overflowY='auto' justifySelf='center' area={'content'}>
+            <GridItem overflowY='auto' justifySelf='center' area={'content'} w={'100%'}>
               <Routes>
                 {Auth.loggedIn() ? (
                   <>
@@ -92,7 +94,8 @@ function App({ cookies }) {
               </Routes>
             </GridItem>
             {/* nav */}
-            <GridItem area={'nav'}><Nav /></GridItem>
+            {/* {Auth.loggedIn() ? (<GridItem area={'nav'}><Nav /></GridItem>):('')} */}
+            <GridItem minH={'fit-content'} area={'nav'}><Nav /></GridItem>
           </Grid>
         </ChakraProvider>
       </StoreProvider>
