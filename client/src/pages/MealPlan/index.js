@@ -58,7 +58,7 @@ export const MealPlan = () => {
     return (
         <Center>
             <Box w={['80vw', null, '40vw']} minW={'fit-content'} borderRadius={'lg'} bg='blackAlpha.600'>
-                {/* {loading ? (<SpinnerFullPage />) : (
+                {loading ? (<SpinnerFullPage />) : (
                     <Tabs>
                         <TabList>
                             {mealList.length > 0 ? (mealList.map(ele => (
@@ -78,8 +78,8 @@ export const MealPlan = () => {
                             ))) : ('')}
                         </TabPanels>
                     </Tabs>
-                )} */}
-                <Image src={placeholder} />
+                )}
+                {/* <Image src={placeholder} /> */}
             </Box>
         </Center>
     )

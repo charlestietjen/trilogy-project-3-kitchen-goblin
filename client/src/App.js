@@ -10,6 +10,7 @@ import { ChakraProvider, extendTheme, cookieStorageManager, localStorageManager,
 import { Header, Nav, ColorModeSwitcher } from './components';
 import { Login, Landing, Signup, SignupAvatar, Dashboard, AddRecipe, RecipeDetails, User, EditRecipe, AddCook, Account, MealPlan } from './pages';
 import { config, colors } from './utils/theme'
+import bgImage from './assets/img/background.webp'
 import Auth from './utils/auth';
 
 
@@ -60,7 +61,10 @@ function App({ cookies }) {
                           "content content"
                           "nav nav"`}
             templateRows={['13% 76% 11%',null,'15% 1fr 11%']}
-            templateColumns={['10% 90%',null,'20% 80%']}>
+            templateColumns={['10% 90%',null,'20% 80%']}
+            bgImg={bgImage}
+            bgRepeat={'no-repeat'}
+            bgSize={'cover'}>
             <GridItem alignSelf={'center'} justifySelf='left' area={'colormode'}>
               <ColorModeSwitcher />
             </GridItem>

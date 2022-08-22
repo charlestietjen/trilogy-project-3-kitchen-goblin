@@ -51,7 +51,7 @@ export const RecipeDetails = () => {
 		<>
 			{loading? (<SpinnerFullPage />) : ('')}
 				{data? (<Tabs isLazy orientation={'vertical'} size={'sm'}>
-					<Box align={'center'}>
+					<Box w={'100vw'} bgColor={'blackAlpha.600'} p={2} backdropFilter={'auto'} backdropBlur={'0.1em'} align={'center'}>
 						<SimpleGrid display={'flex'} columns={2}>
 							<TabList w={['15%', null, null, '25em']}>
 								<Tab>Main</Tab>
@@ -65,7 +65,7 @@ export const RecipeDetails = () => {
 								) : ('')}
 							</TabList>
 							<Stack h='fit-content' marginBottom={4} border={'solid thin'} boxShadow={'xl'} w={['20em', null, '60em']} align={'center'} alignContent='center' paddingTop={7}>
-								<Heading textShadow={'1px 0px black'} w={'40vmax'} textAlign='center' fontSize={'1.5rem'}>{recipeName}</Heading>
+								<Heading textShadow={'1px 0px black'} w={'100%'} textAlign='center' fontSize={'1.5rem'}>{recipeName}</Heading>
 								<TabPanels>
 									<TabPanel align={'center'}>
 										<SimpleGrid w={'90%'} columns={2} margin={3}>

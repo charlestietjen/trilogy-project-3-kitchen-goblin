@@ -5,6 +5,7 @@ import {
     Button,
     Stack,
     Box,
+    Center,
 } from '@chakra-ui/react';
 import { ImageUpload } from '../../components/ImageUpload';
 import { useMutation } from '@apollo/client';
@@ -36,12 +37,14 @@ export const SignupAvatar = () => {
     }
 
     return (
-        <Stack paddingTop='15vh' display='flex' align='center'>
+        <Center>
+        <Stack paddingTop='15vh' display='flex' align='center' bgColor={'blackAlpha.600'} p={10} borderRadius={4} boxShadow={'dark-lg'} backdropFilter={'auto'} backdropBlur={'0.1em'}>
             <FormLabel alignSelf='center' htmlFor='avatar'>Upload an Avatar</FormLabel>
             <Box alignSelf='center' marginTop='1vh' size='xl'>
                 <ImageUpload options={{size: '150px', isAvatar: true}} callback={imageCallback} properties={imageProperties} />
             </Box>
-            <Button as={Link} to={'/dashboard'}>Skip</Button>
+            <Button boxShadow={'dark-lg'} as={Link} to={'/dashboard'}>Skip</Button>
         </Stack>
+        </Center>
     )
 }

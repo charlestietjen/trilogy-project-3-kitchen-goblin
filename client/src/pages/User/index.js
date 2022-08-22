@@ -15,7 +15,7 @@ export const User = () => {
             {loading ? (<SpinnerFullPage />) : ('')}
             {data && data.recipes.length > 0 ? (
                 <Stack spacing={10} align={'center'}>
-                    <SimpleGrid padding={2} borderRadius={5} boxShadow={'dark-lg'} w={'75%'} columns={2}>
+                    <SimpleGrid bgColor={'blackAlpha.600'} backdropFilter={'auto'} backdropBlur={'0.1em'} padding={2} borderRadius={5} boxShadow={'dark-lg'} w={'75%'} columns={2}>
                         <Avatar showBorder={true} size={'xl'} src={data.user.avatar} />
                         <Heading alignSelf='center'>{username}</Heading>
                     </SimpleGrid>

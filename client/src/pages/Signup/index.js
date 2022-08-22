@@ -64,10 +64,10 @@ export const Signup = () => {
 
     return (
         <Stack paddingTop={['10%', 0, 0]} display='flex' align='center'>
-            <Text>Create your Kitchen Goblin account below.</Text>
             <form onSubmit={handleSubmit}>
-                <FormControl onChange={handleChange} isInvalid={!formState.validPassword} align='center' padding='2vmax' borderRadius='5%' bg='blackAlpha.500' shadow='dark-lg' w={['40vmax', null, '45vh']}>
+                <FormControl backdropFilter={'auto'} backdropBlur={'0.1em'} onChange={handleChange} isInvalid={!formState.validPassword} align='center' padding='2vmax' borderRadius='5%' bg='blackAlpha.500' shadow='dark-lg' w={['40vmax', null, '45vh']}>
                     <Stack display='flex'>
+                        <Text>Create your Kitchen Goblin account below.</Text>
                         <FormLabel htmlFor='email'>Email Address</FormLabel>
                         <Input id='email' type='email' />
                         <FormLabel htmlFor='username'>Username</FormLabel>
@@ -80,10 +80,10 @@ export const Signup = () => {
                         <Box>
                         <Button m={1} alignSelf='center' type='submit'>Sign Up</Button><Button onClick={onOpen} m={1}>Terms and Conditions</Button>
                         </Box>
+                        <Text>Already have an account? <Link as={RouterLink} to='/login'>Click here</Link></Text>
                     </Stack>
                 </FormControl>
             </form>
-            <Text>Already have an account? <Link as={RouterLink} to='/login'>Click here</Link></Text>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>

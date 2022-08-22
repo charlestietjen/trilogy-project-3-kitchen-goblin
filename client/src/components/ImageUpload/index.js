@@ -52,7 +52,7 @@ export const ImageUpload = ({ callback, properties, options = {} }) => {
             <FormControl isInvalid={isInvalid}>
                 <Image onClick={handleClick} boxSize={size} src={formState.previewUrl} />
                 <input ref={hiddenInput} onChange={handleChange} type='file' accept='image/*' hidden />
-                <Button isDisabled={uploadDisabled} onClick={handleSubmit} type='submit' margin={2}>Upload</Button>{loading?(<Spinner />):('')}{data?(<CheckIcon />):('')}
+                <Button boxShadow={'dark-lg'} isDisabled={uploadDisabled} onClick={handleSubmit} type='submit' margin={2}>Upload</Button>{loading?(<Spinner />):('')}{data?(<CheckIcon />):('')}
                 <FormErrorMessage>Image must be under {`${maxSize/1000}kb`}</FormErrorMessage>
             </FormControl>
         </Box>

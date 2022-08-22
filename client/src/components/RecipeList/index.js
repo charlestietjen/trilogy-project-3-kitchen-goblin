@@ -31,17 +31,17 @@ export const RecipeList = (props) => {
     return (
         <Stack>
             <Grid boxShadow={'lg'} alignSelf='center' w='35vmax' display='flex' gap={1}>
-                <GridItem w='100%'>
+                <GridItem my={2} mx={1} w='100%'>
                     <form>
-                        <Input onChange={handleSearchInput} />
+                        <Input backdropFilter={'auto'} backdropBlur={'0.1em'} boxShadow={'dark-lg'} bg='blackAlpha.600' onChange={handleSearchInput} />
                     </form>
                 </GridItem>
-                <GridItem>
-                    <IconButton icon={<SearchIcon />} />
+                <GridItem m={2}>
+                    <IconButton backdropFilter={'auto'} backdropBlur={'0.1em'} boxShadow={'dark-lg'} bg='blackAlpha.600' icon={<SearchIcon />} />
                 </GridItem>
             </Grid>
             {filteredRecipes.map(recipe => (
-                <Box as={Link} to={`/recipe/${recipe._id}`} alignSelf='center' w={['85vw', null, '50vw']} boxShadow={'dark-lg'} borderRadius='5%' padding='1vmax' margin='1vmax' bg='blackAlpha.600' key={recipe._id}>
+                <Box backdropFilter={'auto'} backdropBlur={'0.1em'} as={Link} to={`/recipe/${recipe._id}`} alignSelf='center' w={['85vw', null, '50vw']} boxShadow={'dark-lg'} borderRadius='5%' padding='1vmax' margin='1vmax' bg='blackAlpha.600' key={recipe._id}>
                     <Stack display='flex' align='center'>
                         <Heading fontSize={['1.2em', '1.3em', '1.6em', '2em']}>{recipe.recipeName}</Heading>
                         <Image borderRadius={5} boxShadow={'dark-lg'} w='25vmax' src={recipe.image} />

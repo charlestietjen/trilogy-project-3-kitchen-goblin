@@ -94,9 +94,8 @@ export const AddRecipe = () => {
     };
     return (
         <Stack display='flex' align='center' paddingTop={3}>
-            <Heading fontSize={25}>Add a Recipe</Heading>
             <form name='recipe' onSubmit={handleSubmit} onChange={handleChange}>
-                <Stack margin={2} padding={2} boxShadow={'dark-lg'} w={['90vw',null,'40vw']} divider={true}>
+                <Stack bgColor={'blackAlpha.600'} backdropFilter={'auto'} backdropBlur={'0.1em'} margin={2} padding={4} boxShadow={'dark-lg'} w={['90vw',null,'40vw']} divider={true}>
                     <FormControl>
                         <FormLabel>Recipe Name</FormLabel>
                         <Input boxShadow={'2xl'} name='recipeName' placeholder='Enter a name...' />

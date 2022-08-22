@@ -57,19 +57,21 @@ export const Login = () => {
     }, [error, formState]);
     return (
         <Stack paddingTop={['10%', 0, 0]} display='flex' align='center'>
-            <Text>Enter your email and password below to login.</Text>
             <form onSubmit={handleSubmit}>
-                <FormControl onChange={handleChange} isInvalid={!formState.isValid} padding={['2vmax']} borderRadius='5%' bg='blackAlpha.500' shadow='dark-lg' w={['40vmax', null, '45vh']} >
+                <FormControl backdropFilter={'auto'} backdropBlur={'0.1em'} onChange={handleChange} isInvalid={!formState.isValid} padding={['2vmax']} borderRadius='5%' bg='blackAlpha.500' shadow='dark-lg' w={['40vmax', null, '45vh']}>
+                    <Stack gap={1} align={'center'}>
+                    <Text>Enter your email and password below to login.</Text>  
                     <FormLabel htmlFor='email'>Email address</FormLabel>
                     <Input id='email' type='email' />
                     <FormLabel htmlFor='password'>Password</FormLabel>
                     <Input id='password' type='password' />
                     <FormErrorMessage w={'max'} padding={1} bgColor={'red.900'}>Email or password incorrect!</FormErrorMessage>
-                    <Button type='submit' margin='1vmax'>Log In</Button>
+                    <Button boxShadow={'dark-lg'} type='submit'>Log In</Button>
+                    <Text>Not signed up yet? <Link as={RouterLink} to='/signup'>Click Here</Link></Text>
+                    <Text>Forgot your password? <Link as={RouterLink} to='/passwordreset'>Click Here</Link></Text>
+                    </Stack>
                 </FormControl>
             </form>
-            <Text>Not signed up yet? <Link as={RouterLink} to='/signup'>Click Here</Link></Text>
-            <Text>Forgot your password? <Link as={RouterLink} to='/passwordreset'>Click Here</Link></Text>
         </Stack>
     )
 }
