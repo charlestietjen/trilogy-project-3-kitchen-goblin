@@ -20,7 +20,7 @@ Recipes may also be listed publically or privately. Publically listed recipes wi
 
 ## Live Deploy
 
-[Available Here](https://kitchen-goblin.herokuapp.com/)
+[Available Here](http://kitchen-goblin.lowlevelgoblin.com/)
 ## Screenshots
 
 ![App Screenshot](./img/project-ss.png)
