@@ -131,7 +131,7 @@ export const EditRecipe = () => {
             {formState.recipeName ? (
                 <Stack align='center' paddingTop={3} paddingBottom={'2em'}>
                     <form onSubmit={handleSubmit} onChange={handleChange}>
-                        <FormControl boxShadow={'dark-lg'} padding={2} align='center' w={'23em'}>
+                        <FormControl boxShadow={'dark-lg'} padding={2} align='center' w={['90vw',null,'40vw']}>
                             <FormLabel>Recipe Title</FormLabel>
                             <Editable boxShadow={'2xl'} placeholder='Enter a title...' defaultValue={formState.recipeName}>
                                 <EditablePreview />

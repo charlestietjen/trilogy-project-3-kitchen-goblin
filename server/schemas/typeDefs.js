@@ -93,6 +93,7 @@ type Query {
     recipes(username:String, isPublic:Boolean): [Recipe]
     allrecipes: [Recipe]
     recipe(_id:ID!): RecipeDetails
+    recipegroup(array: [ID]!): [Recipe]
 }
 
 type Mutation {

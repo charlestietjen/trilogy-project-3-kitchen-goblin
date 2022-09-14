@@ -8,5 +8,7 @@ import { RecipeDetails } from './RecipeDetails';
 import { User } from './User';
 import { EditRecipe } from './EditRecipe'
 import { AddCook } from './AddCook'
+import { Account } from './Account'
+import { MealPlan } from './MealPlan';
 
-export { Landing, Login, Signup, SignupAvatar, Dashboard, AddRecipe, RecipeDetails, User, EditRecipe, AddCook };
+export { Landing, Login, Signup, SignupAvatar, Dashboard, AddRecipe, RecipeDetails, User, EditRecipe, AddCook, Account, MealPlan };
